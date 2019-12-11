@@ -1,27 +1,30 @@
 package model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 
 @Entity
-public class Utilizador {
+@NamedQuery(name=User.GET_ALL_USERS, query="SELECT u FROM User u")
+@NamedQuery(name=User.GET_ALL_USERS_IDS, query="SELECT u.id FROM User u")
+@NamedQuery(name=User.GET_USERS_COUNT, query="SELECT COUNT(u) FROM User u")
+public class User extends GenericEntity{
 
-	@Id
-	@GeneratedValue
-	private long id;
+	private static final long serialVersionUID = 1L;
+	
+
+	public static final String GET_ALL_USERS = "Answer.getAllUsers";
+	public static final String GET_ALL_USERS_IDS = "Answer.getAllUsersIds";
+	public static final String GET_USERS_COUNT = "Answer.getUsersCount";
 	
 	private String nome;
 	private String email;
 	private String password;
 	private String role;
 	
-	public long getId() {
-		return id;
+	public User() {
+		
 	}
-	public void setId(long id) {
-		this.id = id;
-	}
+	
 	public String getNome() {
 		return nome;
 	}
