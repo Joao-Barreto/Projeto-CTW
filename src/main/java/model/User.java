@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
 
@@ -7,16 +8,20 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name=User.GET_ALL_USERS, query="SELECT u FROM User u")
 @NamedQuery(name=User.GET_ALL_USERS_IDS, query="SELECT u.id FROM User u")
 @NamedQuery(name=User.GET_USERS_COUNT, query="SELECT COUNT(u) FROM User u")
+@NamedQuery(name = User.GET_USER_BY_EMAIL_AND_PASSWORD, query= "Select u from User u WHERE u.email = :email AND u.password = :password")
 public class User extends GenericEntity{
 
 	private static final long serialVersionUID = 1L;
 	
 
-	public static final String GET_ALL_USERS = "Answer.getAllUsers";
-	public static final String GET_ALL_USERS_IDS = "Answer.getAllUsersIds";
-	public static final String GET_USERS_COUNT = "Answer.getUsersCount";
+	public static final String GET_ALL_USERS = "User.getAllUsers";
+	public static final String GET_ALL_USERS_IDS = "User.getAllUsersIds";
+	public static final String GET_USERS_COUNT = "User.getUsersCount";
+	public static final String GET_USER_BY_EMAIL_AND_PASSWORD = "User.getUserByEmailAndPassword";
 	
 	private String nome;
+	
+	@Column(unique=true)
 	private String email;
 	private String password;
 	private String role;
