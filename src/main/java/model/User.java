@@ -8,7 +8,7 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name=User.GET_ALL_USERS, query="SELECT u FROM User u")
 @NamedQuery(name=User.GET_ALL_USERS_IDS, query="SELECT u.id FROM User u")
 @NamedQuery(name=User.GET_USERS_COUNT, query="SELECT COUNT(u) FROM User u")
-@NamedQuery(name = User.GET_USER_BY_EMAIL_AND_PASSWORD, query= "Select u from User u WHERE u.email = :email AND u.password = :password")
+@NamedQuery(name = User.GET_USER_BY_EMAIL, query= "Select u from User u WHERE u.email = :email")
 public class User extends GenericEntity{
 
 	private static final long serialVersionUID = 1L;
@@ -17,14 +17,17 @@ public class User extends GenericEntity{
 	public static final String GET_ALL_USERS = "User.getAllUsers";
 	public static final String GET_ALL_USERS_IDS = "User.getAllUsersIds";
 	public static final String GET_USERS_COUNT = "User.getUsersCount";
-	public static final String GET_USER_BY_EMAIL_AND_PASSWORD = "User.getUserByEmailAndPassword";
+	public static final String GET_USER_BY_EMAIL = "User.getUserByEmail";
+
+	
 	
 	private String nome;
 	
 	@Column(unique=true)
 	private String email;
-	private String password;
 	private String role;
+	private String hashcode;
+	private String salt;
 	
 	public User() {
 		
@@ -42,17 +45,27 @@ public class User extends GenericEntity{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
 	public String getRole() {
 		return role;
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getHashcode() {
+		return hashcode;
+	}
+
+	public void setHashcode(String hashcode) {
+		this.hashcode = hashcode;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 	
 }

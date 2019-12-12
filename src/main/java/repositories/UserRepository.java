@@ -29,10 +29,16 @@ public class UserRepository extends GenericEntityRepository<User>{
 		return User.GET_USERS_COUNT;
 	}
 
-	public User consultEntityByEmailAndPassword(User user) {
-		return entityManager.createNamedQuery(User.GET_USER_BY_EMAIL_AND_PASSWORD, User.class)
-				.setParameter("email", user.getEmail())
-				.setParameter("password", user.getPassword())
+//	public User consultEntityByEmailAndPassword(User user) {
+//		return entityManager.createNamedQuery(User.GET_USER_BY_EMAIL_AND_PASSWORD, User.class)
+//				.setParameter("email", user.getEmail())
+//				.setParameter("password", user.getPassword())
+//				.getSingleResult();
+//	}
+
+	public User findUserByEmail(String email) {
+		return entityManager.createNamedQuery(User.GET_USER_BY_EMAIL, User.class)
+				.setParameter("email", email)
 				.getSingleResult();
 	}
 

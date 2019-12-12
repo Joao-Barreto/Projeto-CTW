@@ -1,5 +1,7 @@
 package repositories;
 
+import java.util.Collection;
+
 import javax.enterprise.context.ApplicationScoped;
 
 import model.TrainingSession;
@@ -25,6 +27,11 @@ public class TrainingSessionRepository extends GenericEntityRepository<TrainingS
 	@Override
 	protected String getCountQueryName() {
 		return TrainingSession.GET_TRAININGSESSIONS_COUNT;
+	}
+
+	public Collection<TrainingSession> listAllDailyTrainingSessions() {
+		return entityManager.createNamedQuery(TrainingSession.GET_ALL_DAILY_TRAININGSESSIONS, TrainingSession.class)
+				.getResultList();
 	}
 
 }

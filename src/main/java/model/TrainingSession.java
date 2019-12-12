@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
 
@@ -8,11 +10,14 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name=TrainingSession.GET_ALL_TRAININGSESSIONS, query="SELECT ts FROM TrainingSession ts")
 @NamedQuery(name=TrainingSession.GET_ALL_TRAININGSESSIONS_IDS, query="SELECT ts.id FROM TrainingSession ts")
 @NamedQuery(name=TrainingSession.GET_TRAININGSESSIONS_COUNT, query="SELECT COUNT(ts) FROM TrainingSession ts")
+@NamedQuery(name=TrainingSession.GET_TRAININGSESSIONS_COUNT, query="SELECT COUNT(ts) FROM TrainingSession ts")
+@NamedQuery(name=TrainingSession.GET_ALL_DAILY_TRAININGSESSIONS, query="SELECT ts from TrainingSession ts" )
 public class TrainingSession extends GenericEntity{
 
-	public static final String GET_ALL_TRAININGSESSIONS = "Answer.getAllTrainingSessions";
-	public static final String GET_ALL_TRAININGSESSIONS_IDS = "Answer.getAllTrainingSessionsIds";
-	public static final String GET_TRAININGSESSIONS_COUNT = "Answer.getTrainingSessionsCount";
+	public static final String GET_ALL_TRAININGSESSIONS = "TrainingSession.getAllTrainingSessions";
+	public static final String GET_ALL_TRAININGSESSIONS_IDS = "TrainingSession.getAllTrainingSessionsIds";
+	public static final String GET_TRAININGSESSIONS_COUNT = "TrainingSession.getTrainingSessionsCount";
+	public static final String GET_ALL_DAILY_TRAININGSESSIONS = "TrainingSession.getAllDailyTrainingSessions";
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -20,6 +25,7 @@ public class TrainingSession extends GenericEntity{
 		private String localization;
 		private int capacity;
 		private String requirements;
+		private Timestamp sessionDate;
 		
 		public TrainingSession() {
 
@@ -55,6 +61,14 @@ public class TrainingSession extends GenericEntity{
 
 		public void setRequirements(String requirements) {
 			this.requirements = requirements;
+		}
+
+		public Timestamp getSessionDate() {
+			return sessionDate;
+		}
+
+		public void setSessionDate(Timestamp sessionDate) {
+			this.sessionDate = sessionDate;
 		}
 
 }

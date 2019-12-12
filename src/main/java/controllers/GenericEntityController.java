@@ -46,13 +46,6 @@ public abstract class GenericEntityController<T extends GenericEntityService<R, 
 		return service.listAllEntities();
 	}
 	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public E createEntity(E entity) {
-		return service.createEntity(entity);
-	}
-	
 	@GET
 	@Path("/{id}")
 	@Produces({MediaType.APPLICATION_JSON})

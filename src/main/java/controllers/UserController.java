@@ -5,8 +5,10 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import model.User;
+import model.dto.UserDTO;
 import repositories.UserRepository;
 import services.UserService;
 
@@ -15,11 +17,25 @@ public class UserController extends GenericEntityController<UserService,UserRepo
 
 	
 	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response createEntity(UserDTO user) {
+		service.createEntity(user);
+		return Response.ok().entity("Success").build();
+	}
+	
+	@POST
 	@Path("auth")
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
-	public User consultEntityByEmailAndPassword(User user) {
-		return service.consultEntityByEmailAndPassword(user);
-	}
+	public Response login(UserDTO user) {
+		try {
+			service.checkIfUserValid(user, user.getPassword());
+			return Response.ok().entity("Success").build();	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			return Response.status(Response.Status.UNAUTHORIZED).entity("Login failed").build();	
+		}
 	
 }

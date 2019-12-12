@@ -15,4 +15,8 @@ public class QuestionnaireService extends GenericEntityService<QuestionnaireRepo
 		return null;
 	}
 
+	public Questionnaire createQuestionnaire(Questionnaire entity) {
+		return repository.createEntity(entity);
+	}
+
 }

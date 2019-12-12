@@ -1,5 +1,7 @@
 package services;
 
+import java.util.Collection;
+
 import javax.enterprise.context.RequestScoped;
 
 import model.TrainingSession;
@@ -10,8 +12,14 @@ public class TrainingSessionService extends GenericEntityService<TrainingSession
 
 	@Override
 	public TrainingSession updateEntity(long id, TrainingSession Entity) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
+	public TrainingSession createTrainingSession(TrainingSession entity) {
+		return repository.createEntity(entity);
+	}
+
+	public Collection<TrainingSession> listAllDailyTrainingSessions() {
+		return repository.listAllDailyTrainingSessions();
+	}
 }

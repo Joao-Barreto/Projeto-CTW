@@ -14,4 +14,9 @@ public class UserSubscriptionService extends GenericEntityService<UserSubscripti
 		return null;
 	}
 
+	public UserSubscription createUserSubscription(UserSubscription entity) {
+		// TODO Auto-generated method stub
+		return repository.createEntity(entity);
+	}
+
 }

@@ -13,4 +13,8 @@ public class AnswerService extends GenericEntityService<AnswerRepository, Answer
 		return null;
 	}
 
+	public Answer createAnswer(Answer entity) {
+		return repository.createEntity(entity);
+	}
+
 }
