@@ -1,5 +1,6 @@
 package controllers;
 
+import java.text.ParseException;
 import java.util.Collection;
 
 import javax.ws.rs.Consumes;
@@ -10,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import model.TrainingSession;
+import model.dto.TrainingSessionDTO;
 import repositories.TrainingSessionRepository;
 import services.TrainingSessionService;
 
@@ -19,7 +21,7 @@ public class TrainingSessionController extends GenericEntityController<TrainingS
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public TrainingSession createEntity(TrainingSession entity) {
+	public TrainingSession createEntity(TrainingSessionDTO entity) throws ParseException {
 		return service.createTrainingSession(entity);
 	}
 	

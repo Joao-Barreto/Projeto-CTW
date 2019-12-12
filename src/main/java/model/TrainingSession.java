@@ -11,7 +11,7 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name=TrainingSession.GET_ALL_TRAININGSESSIONS_IDS, query="SELECT ts.id FROM TrainingSession ts")
 @NamedQuery(name=TrainingSession.GET_TRAININGSESSIONS_COUNT, query="SELECT COUNT(ts) FROM TrainingSession ts")
 @NamedQuery(name=TrainingSession.GET_TRAININGSESSIONS_COUNT, query="SELECT COUNT(ts) FROM TrainingSession ts")
-@NamedQuery(name=TrainingSession.GET_ALL_DAILY_TRAININGSESSIONS, query="SELECT ts from TrainingSession ts" )
+@NamedQuery(name=TrainingSession.GET_ALL_DAILY_TRAININGSESSIONS, query="SELECT ts from TrainingSession ts WHERE ts.sessionDate >= CURRENT_TIMESTAMP")
 public class TrainingSession extends GenericEntity{
 
 	public static final String GET_ALL_TRAININGSESSIONS = "TrainingSession.getAllTrainingSessions";
