@@ -30,8 +30,9 @@ public class UserController extends GenericEntityController<UserService,UserRepo
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response login(UserDTO user) {
 		try {
-			service.checkIfUserValid(user, user.getPassword());
-			return Response.ok().entity("Success").build();	
+			User userLoged = service.checkIfUserValid(user, user.getPassword());
+			
+			return Response.ok().entity(userLoged).build();	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

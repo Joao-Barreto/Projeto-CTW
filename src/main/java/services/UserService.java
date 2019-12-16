@@ -51,18 +51,19 @@ public class UserService extends GenericEntityService<UserRepository, User>{
 
 	}
 	
-	public void checkIfUserValid(UserDTO userDTO, String password) throws Exception {            
+	public User checkIfUserValid(UserDTO userDTO, String password) throws Exception {            
         //User valid if both username and password are valid
-        checkIfPasswordValid(userDTO, password);
+        return checkIfPasswordValid(userDTO, password);
     }
 
-    public void checkIfPasswordValid(UserDTO userDTO, String password) throws Exception {
+    public User checkIfPasswordValid(UserDTO userDTO, String password) throws Exception {
         User myUser=repository.findUserByEmail(userDTO.getEmail());
         String key=myUser.getHashcode();
         String salt=myUser.getSalt();
 
         if(!PasswordUtils.verifyPassword(password, key, salt))
             throw new BadRequestException("Invalid Password");
+        return myUser;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
