@@ -20,4 +20,15 @@ public class UserSubscriptionService extends GenericEntityService<UserSubscripti
 		return repository.createEntity(entity);
 	}
 
+	@Transactional
+	public UserSubscription getSessionTrainer(long sessionId) {
+
+		return repository.getSessionTrainer(sessionId);
+	}
+
+	@Transactional
+	public Long getUserSubscriptionsCountBySessionId(long sessionId) {
+		return repository.getUserSubscriptionsCountBySessionId(sessionId);
+	}
+
 }

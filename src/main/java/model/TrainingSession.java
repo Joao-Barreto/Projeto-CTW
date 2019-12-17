@@ -22,15 +22,14 @@ public class TrainingSession extends GenericEntity{
 	public static final String GET_ALL_TODAY_TRAININGSESSIONS = "TrainingSession.getAllTodayTrainingSessions";
 	public static final String GET_ALL_INTERVAL_TRAININGSESSIONS = "TrainingSession.getAllIntervalTrainingSessions";
 	
-	
 	private static final long serialVersionUID = 1L;
-	
-	
+
 		private String title;
 		private String localization;
 		private int capacity;
 		private String requirements;
 		private Timestamp sessionDate;
+		private String duration;
 		
 		public TrainingSession() {
 
@@ -74,6 +73,14 @@ public class TrainingSession extends GenericEntity{
 
 		public void setSessionDate(Timestamp sessionDate) {
 			this.sessionDate = sessionDate;
+		}
+		
+		public String getDuration() {
+			return duration;
+		}
+
+		public void setDuration(String duration) {
+			this.duration = duration;
 		}
 
 }

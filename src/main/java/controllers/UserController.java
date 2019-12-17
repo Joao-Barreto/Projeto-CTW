@@ -20,8 +20,13 @@ public class UserController extends GenericEntityController<UserService,UserRepo
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createEntity(UserDTO user) {
-		service.createEntity(user);
-		return Response.ok().entity("Success").build();
+		try{
+			service.createEntity(user);
+			return Response.ok().entity("Success").build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Response.status(Response.Status.UNAUTHORIZED).entity("Create Failed").build();	
 	}
 	
 	@POST

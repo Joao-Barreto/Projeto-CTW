@@ -14,15 +14,29 @@ import javax.persistence.OneToMany;
 @NamedQuery(name = Questionnaire.GET_QUESTIONNAIRES_COUNT, query = "SELECT COUNT(q) FROM Questionnaire q")
 public class Questionnaire extends GenericEntity {
 
+	
 	private static final long serialVersionUID = 1L;
 
-	public static final String GET_ALL_QUESTIONNAIRES = "Answer.getAllQuestionnaires";
-	public static final String GET_ALL_QUESTIONNAIRES_IDS = "Answer.getAllQuestionnairesIds";
-	public static final String GET_QUESTIONNAIRES_COUNT = "Answer.getQuestionnairesCount";
+	public static final String GET_ALL_QUESTIONNAIRES = "Questionnaire.getAllQuestionnaires";
+	public static final String GET_ALL_QUESTIONNAIRES_IDS = "Questionnaire.getAllQuestionnairesIds";
+	public static final String GET_QUESTIONNAIRES_COUNT = "Questionnaire.getQuestionnairesCount";
 	
 	@OneToMany
 	private List<TrainingSession> trainingSessionsList = new ArrayList<TrainingSession>();
 	@ManyToMany
 	private List<Question> questionsList = new ArrayList<Question>();
+	
+	public List<TrainingSession> getTrainingSessionsList() {
+		return trainingSessionsList;
+	}
+	public void setTrainingSessionsList(List<TrainingSession> trainingSessionsList) {
+		this.trainingSessionsList = trainingSessionsList;
+	}
+	public List<Question> getQuestionsList() {
+		return questionsList;
+	}
+	public void setQuestionsList(List<Question> questionsList) {
+		this.questionsList = questionsList;
+	}
 
 }

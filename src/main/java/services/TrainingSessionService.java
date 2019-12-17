@@ -56,6 +56,5 @@ public class TrainingSessionService extends GenericEntityService<TrainingSession
 		Timestamp calPlusOneTS = new Timestamp(cal.getTime().getTime());		
 		return repository.listAllIntervalTrainingSessions(calTS,calPlusOneTS);
 	}
-	
-	
+
 }

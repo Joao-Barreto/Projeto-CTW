@@ -18,13 +18,11 @@ public class User extends GenericEntity{
 	public static final String GET_ALL_USERS_IDS = "User.getAllUsersIds";
 	public static final String GET_USERS_COUNT = "User.getUsersCount";
 	public static final String GET_USER_BY_EMAIL = "User.getUserByEmail";
-
-	
-	
-	private String nome;
 	
 	@Column(unique=true)
 	private String email;
+	
+	private String nome;
 	private String role;
 	private String hashcode;
 	private String salt;

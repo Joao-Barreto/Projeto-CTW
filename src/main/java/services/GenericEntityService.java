@@ -19,12 +19,6 @@ public abstract class GenericEntityService<T extends GenericEntityRepository<E>,
 		return repository.consultEntity();
 	}
 
-//	@Transactional
-//	public E createEntity(E entity) {
-//		return repository.createEntity(entity);
-//
-//	}
-
 	@Transactional
 	public E consultEntityById(long id) {
 		return repository.consultEntity(id);

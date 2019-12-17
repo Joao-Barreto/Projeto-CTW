@@ -1,6 +1,8 @@
 package services;
 
 import javax.enterprise.context.RequestScoped;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.transaction.Transactional;
 import javax.ws.rs.BadRequestException;
 
@@ -29,10 +31,14 @@ public class UserService extends GenericEntityService<UserRepository, User>{
 //	}
 	
 	@Transactional
-	public void createEntity(UserDTO userDTO) {
-		
+	public void createEntity(UserDTO userDTO) throws Exception{
 		String email = userDTO.getEmail();
 
+		if(!isValidEmailAddress(email)) {
+			throw new BadRequestException("Invalid email");
+		}
+		
+		
 		User user = new User();
 		
 		//password->(hash, salt)
@@ -47,8 +53,6 @@ public class UserService extends GenericEntityService<UserRepository, User>{
 		
         //Adicionar entity ao repositorio
 		repository.createEntity(user);
-		 
-
 	}
 	
 	
@@ -77,5 +81,16 @@ public class UserService extends GenericEntityService<UserRepository, User>{
         String[] result= {key, salt};
         return result;
     }
+    
+    public static boolean isValidEmailAddress(String email) {
+    	   boolean result = true;
+    	   try {
+    	      InternetAddress emailAddr = new InternetAddress(email);
+    	      emailAddr.validate();
+    	   } catch (AddressException ex) {
+    	      result = false;
+    	   }
+    	   return result;
+    	}
 
 }
