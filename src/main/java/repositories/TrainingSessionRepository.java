@@ -1,6 +1,8 @@
 package repositories;
 
+import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -29,8 +31,17 @@ public class TrainingSessionRepository extends GenericEntityRepository<TrainingS
 		return TrainingSession.GET_TRAININGSESSIONS_COUNT;
 	}
 
-	public Collection<TrainingSession> listAllDailyTrainingSessions() {
-		return entityManager.createNamedQuery(TrainingSession.GET_ALL_DAILY_TRAININGSESSIONS, TrainingSession.class)
+	public Collection<TrainingSession> listAllTodayTrainingSessions(Timestamp today) {
+		return entityManager.createNamedQuery(TrainingSession.GET_ALL_TODAY_TRAININGSESSIONS, TrainingSession.class)
+				.setParameter("timeStamp", today)
+				.getResultList();
+	}
+
+	public Collection<TrainingSession> listAllIntervalTrainingSessions(Timestamp calTS, Timestamp calPlusOneTS) {
+
+		return entityManager.createNamedQuery(TrainingSession.GET_ALL_INTERVAL_TRAININGSESSIONS, TrainingSession.class)
+				.setParameter("interval", calTS)
+				.setParameter("intervalPlus", calPlusOneTS)
 				.getResultList();
 	}
 

@@ -8,6 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import model.TrainingSession;
@@ -26,10 +27,19 @@ public class TrainingSessionController extends GenericEntityController<TrainingS
 	}
 	
 	@GET
-	@Path("daily")
+	@Path("today")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<TrainingSession> listAllDailyTrainingSessions(){
-		return service.listAllDailyTrainingSessions();
+	public Collection<TrainingSession> listAllTodayTrainingSessions(){
+		return service.listAllTodayTrainingSessions();
+	}
+	
+	@POST
+	@Path("interval")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.TEXT_PLAIN)
+	public Collection<TrainingSession> listAllIntervalTrainingSessions(String interval) throws ParseException{
+		System.out.println("Interval: " + interval);
+		return service.listAllIntervalTrainingSessions(interval);
 	}
 	
 }

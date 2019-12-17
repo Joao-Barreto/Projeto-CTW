@@ -1,6 +1,7 @@
 package services;
 
 import javax.enterprise.context.RequestScoped;
+import javax.transaction.Transactional;
 
 import model.Question;
 import repositories.QuestionRepository;
@@ -14,6 +15,7 @@ public class QuestionService extends GenericEntityService<QuestionRepository, Qu
 		return null;
 	}
 
+	@Transactional
 	public Question createQuestion(Question entity) {
 		return repository.createEntity(entity);
 	}

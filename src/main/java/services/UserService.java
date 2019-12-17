@@ -51,6 +51,7 @@ public class UserService extends GenericEntityService<UserRepository, User>{
 
 	}
 	
+	
 	public User checkIfUserValid(UserDTO userDTO, String password) throws Exception {            
         //User valid if both username and password are valid
         return checkIfPasswordValid(userDTO, password);

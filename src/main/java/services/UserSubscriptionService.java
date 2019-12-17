@@ -1,6 +1,7 @@
 package services;
 
 import javax.enterprise.context.RequestScoped;
+import javax.transaction.Transactional;
 
 import model.UserSubscription;
 import repositories.UserSubscriptionRepository;
@@ -14,8 +15,8 @@ public class UserSubscriptionService extends GenericEntityService<UserSubscripti
 		return null;
 	}
 
+	@Transactional
 	public UserSubscription createUserSubscription(UserSubscription entity) {
-		// TODO Auto-generated method stub
 		return repository.createEntity(entity);
 	}
 
