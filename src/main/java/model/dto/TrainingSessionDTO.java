@@ -15,13 +15,23 @@ public class TrainingSessionDTO {
 	private int capacity;
 	private String requirements;
 	private String sessionDate;
+	private String duration;
+	private long trainer;
 	
 	public Date getSubmissionDateConverted(String timezone) throws ParseException {
         dateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
         return dateFormat.parse(this.sessionDate);
     }
  
-    public void setSubmissionDate(Date date, String timezone) {
+    public long getTrainer() {
+		return trainer;
+	}
+
+	public void setTrainer(long trainer) {
+		this.trainer = trainer;
+	}
+
+	public void setSubmissionDate(Date date, String timezone) {
         dateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
         this.sessionDate = dateFormat.format(date);
 	
@@ -69,5 +79,13 @@ public class TrainingSessionDTO {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getDuration() {
+		return duration;
+	}
+
+	public void setDuration(String duration) {
+		this.duration = duration;
 	}
 }

@@ -31,4 +31,10 @@ public class UserSubscriptionService extends GenericEntityService<UserSubscripti
 		return repository.getUserSubscriptionsCountBySessionId(sessionId);
 	}
 
+	public void createFormador(long trainer) {
+		
+		
+		
+	}
+
 }

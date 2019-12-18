@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import model.TrainingSession;
@@ -17,6 +18,9 @@ import repositories.TrainingSessionRepository;
 @RequestScoped
 public class TrainingSessionService extends GenericEntityService<TrainingSessionRepository, TrainingSession>{
 
+	@Inject
+	UserSubscriptionService userSubscriptionService;
+	
 	@Override
 	public TrainingSession updateEntity(long id, TrainingSession Entity) throws Exception {
 		return null;
@@ -26,7 +30,6 @@ public class TrainingSessionService extends GenericEntityService<TrainingSession
 	public TrainingSession createTrainingSession(TrainingSessionDTO entity) throws ParseException {
 		Date d = entity.getSubmissionDateConverted(entity.getSessionDate());
 		TrainingSession ts = new TrainingSession();
-		
 		Timestamp tsDate = new Timestamp(d.getTime());
 		
 		ts.setTitle(entity.getTitle());
@@ -34,6 +37,8 @@ public class TrainingSessionService extends GenericEntityService<TrainingSession
 		ts.setCapacity(entity.getCapacity());
 		ts.setRequirements(entity.getRequirements());
 		ts.setSessionDate(tsDate);
+		
+		userSubscriptionService.createFormador(entity.getTrainer());
 		
 		return repository.createEntity(ts);
 	}
