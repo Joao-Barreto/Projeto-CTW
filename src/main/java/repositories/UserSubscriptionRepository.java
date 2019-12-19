@@ -27,9 +27,9 @@ public class UserSubscriptionRepository extends GenericEntityRepository<UserSubs
 		return UserSubscription.GET_USERSUBSCRIPTIONS_COUNT;
 	}
 
-	public UserSubscription getSessionTrainer(long sessionId) {
+	public UserSubscription getSessionInstructor(long sessionId) {
 
-		return entityManager.createNamedQuery(UserSubscription.GET_SESSION_TRAINER, UserSubscription.class)
+		return entityManager.createNamedQuery(UserSubscription.GET_SESSION_INSTRUCTOR, UserSubscription.class)
 				.setParameter("sessionId", sessionId)
 				.getSingleResult();
 	}

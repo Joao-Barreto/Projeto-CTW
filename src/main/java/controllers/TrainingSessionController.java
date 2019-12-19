@@ -26,7 +26,9 @@ public class TrainingSessionController extends GenericEntityController<TrainingS
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public TrainingSession createEntity(TrainingSessionDTO entity) throws ParseException {
-		return service.createTrainingSession(entity);
+		TrainingSession returnTS = service.createTrainingSession(entity);
+		service.createInstructor(entity.getInstructor(),returnTS.getId());	
+		return returnTS;
 	}
 	
 	@GET

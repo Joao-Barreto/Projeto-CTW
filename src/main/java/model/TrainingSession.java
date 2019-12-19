@@ -25,7 +25,7 @@ public class TrainingSession extends GenericEntity{
 	private static final long serialVersionUID = 1L;
 
 		private String title;
-		private String localization;
+		private String location;
 		private int capacity;
 		private String requirements;
 		private Timestamp sessionDate;
@@ -43,12 +43,12 @@ public class TrainingSession extends GenericEntity{
 			this.title = title;
 		}
 
-		public String getLocalization() {
-			return localization;
+		public String getLocation() {
+			return location;
 		}
 
-		public void setLocalization(String localization) {
-			this.localization = localization;
+		public void setLocation(String location) {
+			this.location = location;
 		}
 
 		public int getCapacity() {
@@ -81,6 +81,13 @@ public class TrainingSession extends GenericEntity{
 
 		public void setDuration(String duration) {
 			this.duration = duration;
+		}
+
+		@Override
+		public String toString() {
+			return "TrainingSession [title=" + title + ", location=" + location + ", capacity=" + capacity
+					+ ", requirements=" + requirements + ", sessionDate=" + sessionDate + ", duration=" + duration
+					+ ", id=" + id + "]";
 		}
 
 }

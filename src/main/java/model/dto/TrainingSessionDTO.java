@@ -6,29 +6,29 @@ import java.util.Date;
 import java.util.TimeZone;
 
 
-public class TrainingSessionDTO {
+public class TrainingSessionDTO extends BaseDTO{
 	private static final SimpleDateFormat dateFormat
     = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
 	private String title;
-	private String localization;
+	private String location;
 	private int capacity;
 	private String requirements;
 	private String sessionDate;
 	private String duration;
-	private long trainer;
+	private long instructor;
 	
 	public Date getSubmissionDateConverted(String timezone) throws ParseException {
         dateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
         return dateFormat.parse(this.sessionDate);
     }
  
-    public long getTrainer() {
-		return trainer;
+    public long getInstructor() {
+		return instructor;
 	}
 
-	public void setTrainer(long trainer) {
-		this.trainer = trainer;
+	public void setInstructor(long instructor) {
+		this.instructor = instructor;
 	}
 
 	public void setSubmissionDate(Date date, String timezone) {
@@ -37,12 +37,12 @@ public class TrainingSessionDTO {
 	
 }
 
-	public String getLocalization() {
-		return localization;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setLocalization(String localization) {
-		this.localization = localization;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public int getCapacity() {

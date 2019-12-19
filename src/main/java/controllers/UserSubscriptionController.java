@@ -24,17 +24,17 @@ public class UserSubscriptionController extends GenericEntityController<UserSubs
 	}
 	
 	@GET
-	@Path("session/{sessionId}/trainer")
+	@Path("session/{sessionId}/instructor")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getSessionTrainer(@PathParam("sessionId") long sessionId) {
+	public Response getSessioninstructor(@PathParam("sessionId") long sessionId) {
 	try {
-		UserSubscription trainer = service.getSessionTrainer(sessionId);
-		System.out.println(trainer.getUser());
-		return Response.ok().entity(trainer.getUser()).build();	
+		UserSubscription instructor = service.getSessionInstructor(sessionId);
+		System.out.println(instructor.getUser());
+		return Response.ok().entity(instructor.getUser()).build();	
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
-		return Response.status(Response.Status.UNAUTHORIZED).entity("No trainer").build();	
+		return Response.status(Response.Status.UNAUTHORIZED).entity("No instructor").build();	
 	}
 	
 	@GET
@@ -44,6 +44,18 @@ public class UserSubscriptionController extends GenericEntityController<UserSubs
 			Long count = service.getUserSubscriptionsCountBySessionId(sessionId);
 			System.out.println(count);
 			return Response.ok().entity(count).build();	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Response.status(Response.Status.UNAUTHORIZED).entity("No attendees").build();	
+	}
+	@GET
+	@Path("session/{sessionId}/user/")
+	public Response getUserSubscriptionsBySessionId(@PathParam("sessionId") long sessionId) {
+		try {
+			UserSubscription userSubs = service.getUserSubscriptionsBySessionId(sessionId);
+			System.out.println(userSubs);
+			return Response.ok().entity(userSubs).build();	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

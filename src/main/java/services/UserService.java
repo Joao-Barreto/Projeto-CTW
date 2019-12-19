@@ -24,11 +24,6 @@ public class UserService extends GenericEntityService<UserRepository, User>{
     public User findUserByEmail(String email) {
         return repository.findUserByEmail(email);
     }
-
-//	@Transactional
-//	public User consultEntityByEmailAndPassword(User user) {
-//		return repository.consultEntityByEmailAndPassword(user);
-//	}
 	
 	@Transactional
 	public void createEntity(UserDTO userDTO) throws Exception{

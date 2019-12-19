@@ -33,14 +33,16 @@ public class TrainingSessionService extends GenericEntityService<TrainingSession
 		Timestamp tsDate = new Timestamp(d.getTime());
 		
 		ts.setTitle(entity.getTitle());
-		ts.setLocalization(entity.getLocalization());
+		ts.setLocation(entity.getLocation());
 		ts.setCapacity(entity.getCapacity());
 		ts.setRequirements(entity.getRequirements());
 		ts.setSessionDate(tsDate);
+		ts.setDuration(entity.getDuration());
+		TrainingSession returnTs = repository.createEntity(ts);
 		
-		userSubscriptionService.createFormador(entity.getTrainer());
-		
-		return repository.createEntity(ts);
+//		createInstructor(entity.getInstructor(),returnTs.getId());	
+//		System.out.println("RETURN TRAININGESSIO: " + returnTs.toString());
+		return returnTs;
 	}
 
 	@Transactional
@@ -61,5 +63,11 @@ public class TrainingSessionService extends GenericEntityService<TrainingSession
 		Timestamp calPlusOneTS = new Timestamp(cal.getTime().getTime());		
 		return repository.listAllIntervalTrainingSessions(calTS,calPlusOneTS);
 	}
+	
+	@Transactional
+	public void createInstructor(long l, long m) {
+		userSubscriptionService.setSessionInstructor(l,m);
+	}
+	
 
 }
