@@ -38,12 +38,6 @@ public class UserSubscriptionService extends GenericEntityService<UserSubscripti
 	public Long getUserSubscriptionsCountBySessionId(long sessionId) {
 		return repository.getUserSubscriptionsCountBySessionId(sessionId);
 	}
-
-	@Transactional
-	public UserSubscription getUserSubscriptionsBySessionId(long sessionId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	public void setSessionInstructor(long instructor, long session) {
 		UserSubscription userSubscription = new UserSubscription();

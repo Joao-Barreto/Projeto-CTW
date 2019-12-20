@@ -1,5 +1,7 @@
 package services;
 
+import java.util.Collection;
+
 import javax.enterprise.context.RequestScoped;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -50,6 +52,12 @@ public class UserService extends GenericEntityService<UserRepository, User>{
 		repository.createEntity(user);
 	}
 	
+	@Transactional
+	public Collection<User> getUserSubscribedBySessionId(long sessionId) {
+
+		return repository.getUserSubscribedBySessionId(sessionId);
+	}
+	
 	
 	public User checkIfUserValid(UserDTO userDTO, String password) throws Exception {            
         //User valid if both username and password are valid
@@ -65,6 +73,8 @@ public class UserService extends GenericEntityService<UserRepository, User>{
             throw new BadRequestException("Invalid Password");
         return myUser;
     }
+    
+    
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////Password-Methods//////////////////////////////////////////////////////
@@ -87,5 +97,8 @@ public class UserService extends GenericEntityService<UserRepository, User>{
     	   }
     	   return result;
     	}
+
+	
+
 
 }

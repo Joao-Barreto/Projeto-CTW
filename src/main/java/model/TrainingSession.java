@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
-import javax.transaction.Transactional;
 
 
 @Entity
@@ -14,6 +13,7 @@ import javax.transaction.Transactional;
 @NamedQuery(name=TrainingSession.GET_TRAININGSESSIONS_COUNT, query="SELECT COUNT(ts) FROM TrainingSession ts")
 @NamedQuery(name=TrainingSession.GET_ALL_TODAY_TRAININGSESSIONS, query="SELECT ts from TrainingSession ts WHERE ts.sessionDate BETWEEN CURRENT_TIMESTAMP AND :timeStamp")
 @NamedQuery(name=TrainingSession.GET_ALL_INTERVAL_TRAININGSESSIONS, query="SELECT ts from TrainingSession ts WHERE ts.sessionDate BETWEEN :interval AND :intervalPlus")
+@NamedQuery(name =TrainingSession.GET_SESSIONS_BY_USER_ID, query= "Select us.trainingSSession from UserSubscription us WHERE us.user.id = :userId")
 public class TrainingSession extends GenericEntity{
 
 	public static final String GET_ALL_TRAININGSESSIONS = "TrainingSession.getAllTrainingSessions";
@@ -21,8 +21,10 @@ public class TrainingSession extends GenericEntity{
 	public static final String GET_TRAININGSESSIONS_COUNT = "TrainingSession.getTrainingSessionsCount";
 	public static final String GET_ALL_TODAY_TRAININGSESSIONS = "TrainingSession.getAllTodayTrainingSessions";
 	public static final String GET_ALL_INTERVAL_TRAININGSESSIONS = "TrainingSession.getAllIntervalTrainingSessions";
+	public static final String GET_SESSIONS_BY_USER_ID = "TrainingSession.getSessionsByUserId";
 	
 	private static final long serialVersionUID = 1L;
+
 
 		private String title;
 		private String location;

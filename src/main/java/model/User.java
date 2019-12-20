@@ -9,6 +9,7 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name=User.GET_ALL_USERS_IDS, query="SELECT u.id FROM User u")
 @NamedQuery(name=User.GET_USERS_COUNT, query="SELECT COUNT(u) FROM User u")
 @NamedQuery(name = User.GET_USER_BY_EMAIL, query= "Select u from User u WHERE u.email = :email")
+@NamedQuery(name = User.GET_USER_SUBSCRIBED_BY_SESSION_ID, query= "Select us.user from UserSubscription us WHERE us.trainingSession.id = :sessionId")
 public class User extends GenericEntity{
 
 	private static final long serialVersionUID = 1L;
@@ -18,6 +19,9 @@ public class User extends GenericEntity{
 	public static final String GET_ALL_USERS_IDS = "User.getAllUsersIds";
 	public static final String GET_USERS_COUNT = "User.getUsersCount";
 	public static final String GET_USER_BY_EMAIL = "User.getUserByEmail";
+
+
+	public static final String GET_USER_SUBSCRIBED_BY_SESSION_ID = "User.getUserSubscribedBySessionId";
 	
 	@Column(unique=true)
 	private String email;

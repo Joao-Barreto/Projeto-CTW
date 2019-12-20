@@ -14,7 +14,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import model.TrainingSession;
-import model.User;
 import model.dto.TrainingSessionDTO;
 import repositories.TrainingSessionRepository;
 import services.TrainingSessionService;
@@ -22,6 +21,27 @@ import services.TrainingSessionService;
 @Path("trainingsession")
 public class TrainingSessionController extends GenericEntityController<TrainingSessionService,TrainingSessionRepository,TrainingSession>{
 
+	
+	@GET
+	@Path("today")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<TrainingSession> listAllTodayTrainingSessions(){
+		return service.listAllTodayTrainingSessions();
+	}
+	
+	@GET
+	@Path("user/{userId}/")
+	public Response getSessionsByUserId(@PathParam("userId") long userId) {
+		try {
+			Collection<TrainingSession> userSessions = service.getSessionsByUserId(userId);
+			System.out.println(userSessions);
+			return Response.ok().entity(userSessions).build();	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Response.status(Response.Status.UNAUTHORIZED).entity("No attendees").build();	
+	}
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -29,13 +49,6 @@ public class TrainingSessionController extends GenericEntityController<TrainingS
 		TrainingSession returnTS = service.createTrainingSession(entity);
 		service.createInstructor(entity.getInstructor(),returnTS.getId());	
 		return returnTS;
-	}
-	
-	@GET
-	@Path("today")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<TrainingSession> listAllTodayTrainingSessions(){
-		return service.listAllTodayTrainingSessions();
 	}
 	
 	@POST
@@ -46,5 +59,7 @@ public class TrainingSessionController extends GenericEntityController<TrainingS
 		System.out.println("Interval: " + interval);
 		return service.listAllIntervalTrainingSessions(interval);
 	}
+	
+	
 }
 

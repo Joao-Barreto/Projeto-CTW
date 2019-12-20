@@ -16,13 +16,6 @@ import services.UserSubscriptionService;
 @Path("subscription")
 public class UserSubscriptionController extends GenericEntityController<UserSubscriptionService,UserSubscriptionRepository,UserSubscription>{
 
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public UserSubscription createEntity(UserSubscription entity) {
-		return service.createUserSubscription(entity);
-	}
-	
 	@GET
 	@Path("session/{sessionId}/instructor")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -49,17 +42,15 @@ public class UserSubscriptionController extends GenericEntityController<UserSubs
 		}
 		return Response.status(Response.Status.UNAUTHORIZED).entity("No attendees").build();	
 	}
-	@GET
-	@Path("session/{sessionId}/user/")
-	public Response getUserSubscriptionsBySessionId(@PathParam("sessionId") long sessionId) {
-		try {
-			UserSubscription userSubs = service.getUserSubscriptionsBySessionId(sessionId);
-			System.out.println(userSubs);
-			return Response.ok().entity(userSubs).build();	
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return Response.status(Response.Status.UNAUTHORIZED).entity("No attendees").build();	
+	
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public UserSubscription createEntity(UserSubscription entity) {
+		return service.createUserSubscription(entity);
 	}
+	
+	
 }
 	

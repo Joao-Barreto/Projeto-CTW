@@ -1,8 +1,12 @@
 package controllers;
 
+import java.util.Collection;
+
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -43,5 +47,18 @@ public class UserController extends GenericEntityController<UserService,UserRepo
 		}
 			return Response.status(Response.Status.UNAUTHORIZED).entity("Login failed").build();	
 		}
+	
+	@GET
+	@Path("session/{sessionId}/")
+	public Response getUserSubscriptionsBySessionId(@PathParam("sessionId") long sessionId) {
+		try {
+			Collection<User> userSubs = service.getUserSubscribedBySessionId(sessionId);
+			System.out.println(userSubs);
+			return Response.ok().entity(userSubs).build();	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Response.status(Response.Status.UNAUTHORIZED).entity("No attendees").build();	
+	}
 	
 }
