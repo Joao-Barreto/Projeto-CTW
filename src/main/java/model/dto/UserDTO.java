@@ -4,21 +4,32 @@ package model.dto;
 
 public class UserDTO extends BaseDTO{
 
-	private String nome;
+	private String name;
 	
 	private String email;
 	private String role;
 	
 	private String password;
 	
+	private int progress;
+	
 	public UserDTO() {
 		super();
 	}
-	public String getNome() {
-		return nome;
+	public int getProgress() {
+		return progress;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setProgress(int progress) {
+		this.progress = progress;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setNome(String name) {
+		this.name = name;
 	}
 	public String getEmail() {
 		return email;

@@ -47,6 +47,7 @@ public class UserService extends GenericEntityService<UserRepository, User>{
         user.setHashcode(hashCode[0]);
         user.setSalt(hashCode[1]);
         user.setEmail(email);
+        user.setName(userDTO.getName());
 		
         //Adicionar entity ao repositorio
 		repository.createEntity(user);

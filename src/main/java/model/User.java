@@ -26,7 +26,7 @@ public class User extends GenericEntity{
 	@Column(unique=true)
 	private String email;
 	
-	private String nome;
+	private String name;
 	private String role;
 	private String hashcode;
 	private String salt;
@@ -35,11 +35,11 @@ public class User extends GenericEntity{
 		
 	}
 	
-	public String getNome() {
-		return nome;
+	public String gatNome() {
+		return name;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getEmail() {
 		return email;
