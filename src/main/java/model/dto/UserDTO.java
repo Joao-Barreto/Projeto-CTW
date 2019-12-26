@@ -24,6 +24,7 @@ public class UserDTO extends BaseDTO{
 	}
 	public void setName(String name) {
 		this.name = name;
+		System.out.println(this.name);
 	}
 	public String getName() {
 		return name;
