@@ -47,5 +47,17 @@ public class UserSubscriptionService extends GenericEntityService<UserSubscripti
 		repository.createEntity(userSubscription);
 	}
 
+	@Transactional
+	public boolean getIfUserSubscribed(long sessionId, long userId) {
+
+		return repository.getIfUserSubscribed(sessionId, userId);
+	}
+
+	@Transactional
+	public UserSubscription getSubscription(long userId, long sessionId) {
+
+		return repository.getSubscription(userId, sessionId);
+	}
+
 
 }

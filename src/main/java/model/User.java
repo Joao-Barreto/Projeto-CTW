@@ -35,7 +35,7 @@ public class User extends GenericEntity{
 		
 	}
 	
-	public String getNome() {
+	public String getName() {
 		return name;
 	}
 	public void setName(String name) {

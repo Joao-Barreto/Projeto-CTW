@@ -41,4 +41,26 @@ public class UserSubscriptionRepository extends GenericEntityRepository<UserSubs
 				.getSingleResult();
 	}
 
+	public boolean getIfUserSubscribed(long sessionId, long userId) {
+		boolean subscribed = false;
+		Long result = entityManager.createNamedQuery(UserSubscription.GET_IF_USER_SUBSCRIBED, Long.class)
+				.setParameter("sessionId", sessionId)
+				.setParameter("userId", userId)
+				.getSingleResult();
+		if (result != 0) {
+			subscribed = true;
+		};
+		
+		return subscribed ;
+	}
+
+	
+	public UserSubscription getSubscription(long userId, long sessionId) {
+
+		return entityManager.createNamedQuery(UserSubscription.GET_SUBSCRIPTION, UserSubscription.class)
+				.setParameter("userId", userId)
+				.setParameter("sessionId", sessionId)
+				.getSingleResult();
+	}
+
 }

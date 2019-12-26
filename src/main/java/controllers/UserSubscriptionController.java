@@ -51,6 +51,33 @@ public class UserSubscriptionController extends GenericEntityController<UserSubs
 		return service.createUserSubscription(entity);
 	}
 	
+	@GET
+	@Path("session/{sessionId}/user/{userId}")
+	public Response getIfUserSubscribed(@PathParam("sessionId") long sessionId, @PathParam("userId") long userId) {
+		try {
+			boolean subscribed = service.getIfUserSubscribed(sessionId,userId);
+			System.out.println(subscribed);
+			return Response.ok().entity(subscribed).build();	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Response.status(Response.Status.UNAUTHORIZED).entity("No attendees").build();	
+	}
+	
+	@GET
+	@Path("user/{userId}/session/{sessionId}")
+	public Response getSubscription(@PathParam("userId") long userId, @PathParam("sessionId") long sessionId) {
+		System.out.println("ËNTREI");
+		try {
+			UserSubscription uS = service.getSubscription(userId, sessionId);
+			System.out.println(uS);
+			return Response.ok().entity(uS).build();	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Response.status(Response.Status.UNAUTHORIZED).entity("No attendees").build();	
+	}
+	
 	
 }
 	
