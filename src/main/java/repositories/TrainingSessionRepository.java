@@ -51,4 +51,12 @@ public class TrainingSessionRepository extends GenericEntityRepository<TrainingS
 				.getResultList();
 	}
 
+	public Collection<TrainingSession> listAllPastTrainingSessionsSubscribed(long userId) {
+
+		
+		return entityManager.createNamedQuery(TrainingSession.GET_ALL_PAST_TRAININGSESSIONS_SUBSCRIBED, TrainingSession.class)
+				.setParameter("userId", userId)
+				.getResultList();
+	}
+
 }

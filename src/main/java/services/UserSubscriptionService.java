@@ -1,9 +1,12 @@
 package services;
 
+import java.util.Collection;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import model.TrainingSession;
 import model.UserSubscription;
 import repositories.UserSubscriptionRepository;
 

@@ -14,6 +14,7 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name=TrainingSession.GET_ALL_TODAY_TRAININGSESSIONS, query="SELECT ts from TrainingSession ts WHERE ts.sessionDate BETWEEN CURRENT_TIMESTAMP AND :timeStamp")
 @NamedQuery(name=TrainingSession.GET_ALL_INTERVAL_TRAININGSESSIONS, query="SELECT ts from TrainingSession ts WHERE ts.sessionDate BETWEEN :interval AND :intervalPlus")
 @NamedQuery(name =TrainingSession.GET_SESSIONS_BY_USER_ID, query= "Select us.trainingSession from UserSubscription us WHERE us.user.id = :userId")
+@NamedQuery(name=TrainingSession.GET_ALL_PAST_TRAININGSESSIONS_SUBSCRIBED, query="Select us.trainingSession from UserSubscription us WHERE us.user.id = :userId AND us.trainingSession.sessionDate < CURRENT_TIMESTAMP")
 public class TrainingSession extends GenericEntity{
 
 	public static final String GET_ALL_TRAININGSESSIONS = "TrainingSession.getAllTrainingSessions";
@@ -22,8 +23,10 @@ public class TrainingSession extends GenericEntity{
 	public static final String GET_ALL_TODAY_TRAININGSESSIONS = "TrainingSession.getAllTodayTrainingSessions";
 	public static final String GET_ALL_INTERVAL_TRAININGSESSIONS = "TrainingSession.getAllIntervalTrainingSessions";
 	public static final String GET_SESSIONS_BY_USER_ID = "TrainingSession.getSessionsByUserId";
+	public static final String GET_ALL_PAST_TRAININGSESSIONS_SUBSCRIBED = "TrainingSession.getAllTrainingSessionsSubscribed";
 	
 	private static final long serialVersionUID = 1L;
+	
 
 
 		private String title;

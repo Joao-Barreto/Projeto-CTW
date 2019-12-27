@@ -61,5 +61,13 @@ public class TrainingSessionController extends GenericEntityController<TrainingS
 	}
 	
 	
+	@GET
+	@Path("past/user/{userId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<TrainingSession> listAllPastTrainingSessionsSubscribed(@PathParam("userId") long userId) throws ParseException{
+
+		return service.listAllPastTrainingSessionsSubscribed(userId);
+	}
+	
 }
 

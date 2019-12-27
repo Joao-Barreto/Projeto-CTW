@@ -73,6 +73,12 @@ public class TrainingSessionService extends GenericEntityService<TrainingSession
 	public Collection<TrainingSession> getSessionsByUserId(long userId) {
 		return repository.getSessionsByUserId(userId);
 	}
+
+	@Transactional
+	public Collection<TrainingSession> listAllPastTrainingSessionsSubscribed(long userId) {
+
+		return repository.listAllPastTrainingSessionsSubscribed(userId);
+	}
 	
 
 }
