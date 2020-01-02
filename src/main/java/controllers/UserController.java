@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.File;
 import java.util.Collection;
 
 import javax.ws.rs.Consumes;
@@ -10,6 +11,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import model.User;
 import model.dto.UserDTO;
@@ -59,6 +62,24 @@ public class UserController extends GenericEntityController<UserService,UserRepo
 			e.printStackTrace();
 		}
 		return Response.status(Response.Status.UNAUTHORIZED).entity("No attendees").build();	
+	}
+	
+	@POST
+	@Path("/image-upload")
+	@Consumes("multipart/form-data")
+	public Response uploadFile2(MultipartFormDataInput input) {
+		String response = service.saveImage(input);
+		return Response.ok(response).build();
+	}
+	
+	@GET
+	@Path("image")
+	@Produces(MediaType.APPLICATION_OCTET_STREAM)
+	public Response getFile() {
+	  File file = new File("/Users/manuelfaustino/Desktop/test/sodaq.png");// mudar caminho(ir buscar à BD)
+	  return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
+	      .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"" ) 
+	      .build();
 	}
 	
 }
