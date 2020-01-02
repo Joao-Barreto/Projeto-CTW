@@ -51,4 +51,12 @@ public class UserRepository extends GenericEntityRepository<User>{
 				.getResultList();
 	}
 
+	public void updateImage(long id, String fileName) {//FAZER A QUERY PARA UPDATE DO FILENAME
+		entityManager.createNamedQuery(User.GET_USER_SUBSCRIBED_BY_SESSION_ID, User.class) 
+		.setParameter("id", id)
+		.setParameter("imgPath", fileName)
+		.executeUpdate();
+		
+	}
+
 }

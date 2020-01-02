@@ -27,7 +27,7 @@ import utils.PasswordUtils;
 @RequestScoped
 public class UserService extends GenericEntityService<UserRepository, User>{
 	
-	private final String UPLOADED_FILE_PATH = "/Users/manuelfaustino/Desktop/test/";// mudar o caminho da pasta
+	private final String UPLOADED_FILE_PATH = "/Users/alunomanha/Documents/";// mudar o caminho da pasta
 	
 	@Override
 	public User updateEntity(long id, User Entity) throws Exception {

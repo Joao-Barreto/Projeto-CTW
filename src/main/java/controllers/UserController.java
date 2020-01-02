@@ -65,9 +65,9 @@ public class UserController extends GenericEntityController<UserService,UserRepo
 	}
 	
 	@POST
-	@Path("/image-upload")
+	@Path("{id}/image-upload")
 	@Consumes("multipart/form-data")
-	public Response uploadFile2(MultipartFormDataInput input) {
+	public Response uploadFile2(@PathParam("id") long id,MultipartFormDataInput input) {
 		String response = service.saveImage(input);
 		return Response.ok(response).build();
 	}
@@ -76,7 +76,7 @@ public class UserController extends GenericEntityController<UserService,UserRepo
 	@Path("image")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	public Response getFile() {
-	  File file = new File("/Users/manuelfaustino/Desktop/test/sodaq.png");// mudar caminho(ir buscar à BD)
+	  File file = new File("/Users/alunomanha/Documents/Screen Shot 2019-11-14 at 09.03.51.png");// mudar caminho(ir buscar à BD)
 	  return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
 	      .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"" ) 
 	      .build();
