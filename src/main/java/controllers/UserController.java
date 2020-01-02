@@ -68,7 +68,7 @@ public class UserController extends GenericEntityController<UserService,UserRepo
 	@Path("{id}/image-upload")
 	@Consumes("multipart/form-data")
 	public Response uploadFile2(@PathParam("id") long id,MultipartFormDataInput input) {
-		String response = service.saveImage(input);
+		String response = service.saveImage(id,input);
 		return Response.ok(response).build();
 	}
 	

@@ -113,7 +113,7 @@ public class UserService extends GenericEntityService<UserRepository, User>{
     	}
 
 	
-    public String saveImage(MultipartFormDataInput input) {
+    public String saveImage(long id,MultipartFormDataInput input) {
 		String fileName = "";
 		
 		Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
@@ -135,6 +135,9 @@ public class UserService extends GenericEntityService<UserRepository, User>{
 			fileName = UPLOADED_FILE_PATH + fileName;
 				
 			writeFile(bytes,fileName);
+			
+			//save na BD o path
+			repository.updateImage(id,fileName);
 				
 			System.out.println("Done");
 
