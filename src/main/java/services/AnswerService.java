@@ -10,6 +10,7 @@ import repositories.AnswerRepository;
 public class AnswerService extends GenericEntityService<AnswerRepository, Answer>{
 
 	@Override
+	@Transactional
 	public Answer updateEntity(long id, Answer Entity) throws Exception {
 		return null;
 	}

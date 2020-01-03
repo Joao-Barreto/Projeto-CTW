@@ -41,7 +41,7 @@ public abstract class GenericEntityRepository<T extends GenericEntity> {
 	protected abstract String getCountQueryName();
 
 	public T editEntity(T editedEntity) {
-
+		System.out.println("ENTREI NO REPOSITORY"+editedEntity.toString());
 		return entityManager.merge(editedEntity);
 	}
 

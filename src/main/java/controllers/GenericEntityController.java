@@ -65,11 +65,13 @@ public abstract class GenericEntityController<T extends GenericEntityService<R, 
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateEntity(@PathParam("id") long id, E entity) {
-		
+		System.out.println(id+" "+entity);
 		try {
+			System.out.println("ENTREI NO TRY "+id+" "+entity);
 			E edited = service.updateEntity(id,entity);
 			return Response.status(Response.Status.ACCEPTED).entity(edited).build();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 		}
 	}

@@ -10,6 +10,7 @@ import repositories.QuestionRepository;
 public class QuestionService extends GenericEntityService<QuestionRepository, Question>{
 
 	@Override
+	@Transactional
 	public Question updateEntity(long id, Question Entity) throws Exception {
 		// TODO Auto-generated method stub
 		return null;

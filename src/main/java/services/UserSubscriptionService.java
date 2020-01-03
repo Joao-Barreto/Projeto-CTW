@@ -1,12 +1,12 @@
 package services;
 
+
 import java.util.Collection;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import model.TrainingSession;
 import model.UserSubscription;
 import repositories.UserSubscriptionRepository;
 
@@ -21,9 +21,11 @@ public class UserSubscriptionService extends GenericEntityService<UserSubscripti
 	
 	
 	@Override
-	public UserSubscription updateEntity(long id, UserSubscription Entity) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional
+	public UserSubscription updateEntity(long id, UserSubscription entity) throws Exception {
+		System.out.println("ENTREI NO SERVICE "+id+" "+entity);
+		entity.setId(id);
+		return repository.editEntity(entity);
 	}
 
 	@Transactional
@@ -60,6 +62,12 @@ public class UserSubscriptionService extends GenericEntityService<UserSubscripti
 	public UserSubscription getSubscription(long userId, long sessionId) {
 
 		return repository.getSubscription(userId, sessionId);
+	}
+
+	@Transactional
+	public Collection<UserSubscription> getSubscriptionBySessionId(long sessionId) {
+
+		return repository.getSubscriptionBySessionId( sessionId);
 	}
 
 

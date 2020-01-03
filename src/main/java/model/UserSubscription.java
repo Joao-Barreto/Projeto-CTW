@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 @NamedQuery(name=UserSubscription.GET_USERSCRIPTIONS_COUNT_BY_SESSION_ID,query="SELECT COUNT(us) FROM UserSubscription us WHERE us.trainingSession.id = :sessionId AND us.subType = 'attendee'")
 @NamedQuery(name=UserSubscription.GET_IF_USER_SUBSCRIBED,query="SELECT us.id FROM UserSubscription us WHERE us.trainingSession.id = :sessionId AND us.user.id = :userId")
 @NamedQuery(name=UserSubscription.GET_SUBSCRIPTION,query="SELECT us FROM UserSubscription us WHERE us.user.id = :userId AND us.trainingSession.id = :sessionId")
+@NamedQuery(name=UserSubscription.GET_SUBSCRIPTION_BY_SESSION_ID,query="SELECT us FROM UserSubscription us WHERE us.trainingSession.id = :sessionId")
 public class UserSubscription extends GenericEntity{
 
 	private static final long serialVersionUID = 1L;
@@ -29,6 +30,8 @@ public class UserSubscription extends GenericEntity{
 	public static final String GET_IF_USER_SUBSCRIBED = "UserSubscription.getIfUserSubscribed";
 
 	public static final String GET_SUBSCRIPTION = "UserSubscription.getSubscription";
+
+	public static final String GET_SUBSCRIPTION_BY_SESSION_ID = "UserSubscription.getSubscriptionBySessionId";
 	
 	@ManyToOne
 	private User user;
@@ -40,9 +43,18 @@ public class UserSubscription extends GenericEntity{
 	private List<Answer> answers = new ArrayList<Answer>();
 	
 	private String subType;
+	private String attended = "Pending";
 
 	public UserSubscription() {
 		
+	}
+
+	public String getAttended() {
+		return attended;
+	}
+
+	public void setAttended(String attended) {
+		this.attended = attended;
 	}
 
 	public String getSubType() {

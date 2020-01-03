@@ -22,8 +22,8 @@ public class TrainingSessionService extends GenericEntityService<TrainingSession
 	UserSubscriptionService userSubscriptionService;
 	
 	@Override
-	public TrainingSession updateEntity(long id, TrainingSession Entity) throws Exception {
-		return null;
+	public TrainingSession updateEntity(long id, TrainingSession entity) throws Exception {
+		return repository.editEntity(entity);
 	}
 
 	@Transactional

@@ -30,9 +30,10 @@ public class UserService extends GenericEntityService<UserRepository, User>{
 	private final String UPLOADED_FILE_PATH = "/Users/alunomanha/Documents/";// mudar o caminho da pasta
 	
 	@Override
-	public User updateEntity(long id, User Entity) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional
+	public User updateEntity(long id, User entity) throws Exception {
+		
+		return repository.editEntity(entity);
 	}
 	
 	@Transactional

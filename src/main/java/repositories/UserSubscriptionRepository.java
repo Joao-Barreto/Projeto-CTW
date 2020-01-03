@@ -1,5 +1,7 @@
 package repositories;
 
+import java.util.Collection;
+
 import javax.enterprise.context.ApplicationScoped;
 
 import model.UserSubscription;
@@ -61,6 +63,12 @@ public class UserSubscriptionRepository extends GenericEntityRepository<UserSubs
 				.setParameter("userId", userId)
 				.setParameter("sessionId", sessionId)
 				.getSingleResult();
+	}
+
+	public Collection<UserSubscription> getSubscriptionBySessionId(long sessionId) {
+		return entityManager.createNamedQuery(UserSubscription.GET_SUBSCRIPTION_BY_SESSION_ID, UserSubscription.class)
+				.setParameter("sessionId", sessionId)
+				.getResultList();
 	}
 
 }

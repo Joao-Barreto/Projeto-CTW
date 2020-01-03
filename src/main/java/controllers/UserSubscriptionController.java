@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Collection;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -72,6 +74,20 @@ public class UserSubscriptionController extends GenericEntityController<UserSubs
 			UserSubscription uS = service.getSubscription(userId, sessionId);
 			System.out.println(uS);
 			return Response.ok().entity(uS).build();	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Response.status(Response.Status.UNAUTHORIZED).entity("No attendees").build();	
+	}
+	
+	@GET
+	@Path("session/{sessionId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getSubscriptionBySessionId(@PathParam("sessionId") long sessionId) {
+		try {
+			Collection<UserSubscription> subscribed = service.getSubscriptionBySessionId(sessionId);
+			System.out.println(subscribed);
+			return Response.ok().entity(subscribed).build();	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
