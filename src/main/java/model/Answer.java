@@ -19,7 +19,6 @@ public class Answer extends GenericEntity{
 	public static final String GET_ANSWERS_COUNT = "Answer.getAnswersCount";
 	
 	private String answer;
-	
 	@ManyToOne
 	private Question question;
 
@@ -34,14 +33,16 @@ public class Answer extends GenericEntity{
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-	
+
 	public Question getQuestion() {
 		return question;
 	}
-	
+
 	public void setQuestion(Question question) {
 		this.question = question;
 	}
+
+
 
 }
  

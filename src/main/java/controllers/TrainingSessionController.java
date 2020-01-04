@@ -69,5 +69,13 @@ public class TrainingSessionController extends GenericEntityController<TrainingS
 		return service.listAllPastTrainingSessionsSubscribed(userId);
 	}
 	
+	@GET
+	@Path("unanswered/user/{userId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<TrainingSession> listAllUnansweredTrainingSessions(@PathParam("userId") long userId) throws ParseException{
+
+		return service.listAllUnansweredTrainingSessions(userId);
+	}
+	
 }
 

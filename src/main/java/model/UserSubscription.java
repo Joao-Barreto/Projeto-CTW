@@ -39,12 +39,17 @@ public class UserSubscription extends GenericEntity{
 	@ManyToOne
 	private TrainingSession trainingSession;
 	
-	@OneToMany
-	private List<Answer> answers = new ArrayList<Answer>();
+	private String[] answers;
+	private String[] questions;
+	
+	//@OneToMany
+	//private List<Answer> answers = new ArrayList<Answer>(); USAR QUANDO QUESTIONARIO FOR CONFIGURAVEL
 	
 	private String subType;
 	private String attended = "Pending";
+	private boolean answered = false;
 
+	
 	public UserSubscription() {
 		
 	}
@@ -81,15 +86,30 @@ public class UserSubscription extends GenericEntity{
 		this.trainingSession = trainingSession;
 	}
 
-	public List<Answer> getAnswers() {
+	public String[] getAnswers() {
 		return answers;
 	}
 
-	public void setAnswers(List<Answer> answers) {
+	public void setAnswers(String[] answers) {
 		this.answers = answers;
 	}
+
+	public String[] getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(String[] questions) {
+		this.questions = questions;
+	}
 	
-	
+	public boolean isAnswered() {
+		return answered;
+	}
+
+	public void setAnswered(boolean answered) {
+		this.answered = answered;
+	}
+
 	
 	
 }

@@ -59,4 +59,11 @@ public class TrainingSessionRepository extends GenericEntityRepository<TrainingS
 				.getResultList();
 	}
 
+	public Collection<TrainingSession> listAllUnansweredTrainingSessions(long userId) {
+		
+		return entityManager.createNamedQuery(TrainingSession.GET_ALL_UNANSWERED_TRAININGSESSIONS, TrainingSession.class)
+				.setParameter("userId", userId)
+				.getResultList();
+	}
+
 }
