@@ -25,142 +25,182 @@ import repositories.UserRepository;
 import utils.PasswordUtils;
 
 @RequestScoped
-public class UserService extends GenericEntityService<UserRepository, User>{
-	
+public class UserService extends GenericEntityService<UserRepository, User> {
+
 	private final String UPLOADED_FILE_PATH = "/Users/alunomanha/Documents/";// mudar o caminho da pasta
-	
-	@Override
+
 	@Transactional
-	public User updateEntity(long id, User entity) throws Exception {
-		
-		return repository.editEntity(entity);
+	public UserDTO updateEntity(long id, UserDTO entity) throws Exception {
+//		System.out.println(entity.toString());
+//		System.out.println(convertToUser(entity).toString());
+//		System.out.println(convertToUserDTO(convertToUser(entity)).toString());
+		return convertToUserDTO(repository.editEntity(convertToUser(entity)));
 	}
-	
+
 	@Transactional
-    public User findUserByEmail(String email) {
-        return repository.findUserByEmail(email);
-    }
-	
+	public User findUserByEmail(String email) {
+		return repository.findUserByEmail(email);
+	}
+
 	@Transactional
-	public void createEntity(UserDTO userDTO) throws Exception{
+	public void createEntity(UserDTO userDTO) throws Exception {
+
 		String email = userDTO.getEmail();
 
-		if(!isValidEmailAddress(email)) {
+		if (!isValidEmailAddress(email)) {
 			throw new BadRequestException("Invalid email");
 		}
-		
-		
+
 		User user = new User();
-		
-		//password->(hash, salt)
+
+		// password->(hash, salt)
 		String password = userDTO.getPassword();
-		
+
 		String[] hashCode = passwordToHashcode(password);
-		
-		//set fields to Entity
-        user.setHashcode(hashCode[0]);
-        user.setSalt(hashCode[1]);
-        user.setEmail(email);
-        user.setName(userDTO.getName());
-		
-        //Adicionar entity ao repositorio
+
+		// set fields to Entity
+		user.setHashcode(hashCode[0]);
+		user.setSalt(hashCode[1]);
+		user.setEmail(email);
+		user.setName(userDTO.getName());
+		user.setImgUrl(userDTO.getImgUrl());
+
+		// Adicionar entity ao repositorio
 		repository.createEntity(user);
 	}
-	
+
 	@Transactional
 	public Collection<User> getUserSubscribedBySessionId(long sessionId) {
 
 		return repository.getUserSubscribedBySessionId(sessionId);
 	}
-	
-	
-	public User checkIfUserValid(UserDTO userDTO, String password) throws Exception {            
-        //User valid if both username and password are valid
-        return checkIfPasswordValid(userDTO, password);
-    }
 
-    public User checkIfPasswordValid(UserDTO userDTO, String password) throws Exception {
-        User myUser=repository.findUserByEmail(userDTO.getEmail());
-        String key=myUser.getHashcode();
-        String salt=myUser.getSalt();
+	public User checkIfUserValid(UserDTO userDTO, String password) throws Exception {
+		// User valid if both username and password are valid
+		return checkIfPasswordValid(userDTO, password);
+	}
 
-        if(!PasswordUtils.verifyPassword(password, key, salt))
-            throw new BadRequestException("Invalid Password");
-        return myUser;
-    }
-    
-    
+	public User checkIfPasswordValid(UserDTO userDTO, String password) throws Exception {
+		User myUser = repository.findUserByEmail(userDTO.getEmail());
+		String key = myUser.getHashcode();
+		String salt = myUser.getSalt();
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////Password-Methods//////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		if (!PasswordUtils.verifyPassword(password, key, salt))
+			throw new BadRequestException("Invalid Password");
+		return myUser;
+	}
 
-    public String[] passwordToHashcode(String password) {
-        String salt = PasswordUtils.generateSalt(50).get();
-        String key = PasswordUtils.hashPassword(password, salt).get();
-        String[] result= {key, salt};
-        return result;
-    }
-    
-    public static boolean isValidEmailAddress(String email) {
-    	   boolean result = true;
-    	   try {
-    	      InternetAddress emailAddr = new InternetAddress(email);
-    	      emailAddr.validate();
-    	   } catch (AddressException ex) {
-    	      result = false;
-    	   }
-    	   return result;
-    	}
+	public UserDTO convertToUserDTO(User user) {
+		UserDTO userDTO = new UserDTO();
+		userDTO.setId(user.getId());
+		userDTO.setEmail(user.getEmail());
+		userDTO.setImgUrl(user.getImgUrl());
+		userDTO.setName(user.getName());
+		userDTO.setRole(user.getRole());
+		// userDTO.setProgress(user.getProgress()); //TODO
+		return userDTO;
+	}
 
-	
-    public String saveImage(long id,MultipartFormDataInput input) {
-		String fileName = "";
+	public User convertToUser(UserDTO userDTO) {
+		String email = userDTO.getEmail();
+
 		
+		User user = repository.consultEntity(userDTO.getId());
+		user.setId(userDTO.getId());
+		if (userDTO.getPassword() != null) {
+			if (userDTO.getPassword().length() > 0) {
+				// password->(hash, salt)
+				String password = userDTO.getPassword();
+
+				String[] hashCode = passwordToHashcode(password);
+
+				// set fields to Entity
+				user.setHashcode(hashCode[0]);
+				user.setSalt(hashCode[1]);
+			}
+		}
+		if(email != null) {
+			if (!isValidEmailAddress(email)) {
+				throw new BadRequestException("Invalid email");
+			}
+			user.setEmail(email);
+			}
+		
+		user.setName(userDTO.getName());
+		//user.setImgUrl(userDTO.getImgUrl());
+
+		return user;
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////// Password-Methods//////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	public String[] passwordToHashcode(String password) {
+		String salt = PasswordUtils.generateSalt(50).get();
+		String key = PasswordUtils.hashPassword(password, salt).get();
+		String[] result = { key, salt };
+		return result;
+	}
+
+	public static boolean isValidEmailAddress(String email) {
+		boolean result = true;
+		try {
+			InternetAddress emailAddr = new InternetAddress(email);
+			emailAddr.validate();
+		} catch (AddressException ex) {
+			result = false;
+		}
+		return result;
+	}
+
+	public String saveImage(long id, MultipartFormDataInput input) {
+		String fileName = "";
+
 		Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 		List<InputPart> inputParts = uploadForm.get("uploadedFile");
 
 		for (InputPart inputPart : inputParts) {
 
-		 try {
+			try {
 
-			MultivaluedMap<String, String> header = inputPart.getHeaders();
-			fileName = getFileName(header);
+				MultivaluedMap<String, String> header = inputPart.getHeaders();
+				fileName = getFileName(header);
 
-			//convert the uploaded file to inputstream
-			InputStream inputStream = inputPart.getBody(InputStream.class,null);
+				// convert the uploaded file to inputstream
+				InputStream inputStream = inputPart.getBody(InputStream.class, null);
 
-			byte [] bytes = IOUtils.toByteArray(inputStream);
-				
-			//constructs upload file path
-			fileName = UPLOADED_FILE_PATH + fileName;
-				
-			writeFile(bytes,fileName);
-			
-			//save na BD o path
-			repository.updateImage(id,fileName);
-				
-			System.out.println("Done");
+				byte[] bytes = IOUtils.toByteArray(inputStream);
 
-		  } catch (IOException e) {
-			e.printStackTrace();
-		  }
+				// constructs upload file path
+				fileName = UPLOADED_FILE_PATH + fileName;
+
+				writeFile(bytes, fileName);
+
+				// save na BD o path
+				repository.updateImage(id, fileName);
+
+				System.out.println("Done");
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 		}
 
 		return "uploadFile is called, Uploaded file name : " + fileName;
-		
+
 	}
-	
+
 	private String getFileName(MultivaluedMap<String, String> header) {
 
 		String[] contentDisposition = header.getFirst("Content-Disposition").split(";");
-		
+
 		for (String filename : contentDisposition) {
 			if ((filename.trim().startsWith("filename"))) {
 
 				String[] name = filename.split("=");
-				
+
 				String finalFileName = name[1].trim().replaceAll("\"", "");
 				return finalFileName;
 			}
@@ -168,7 +208,7 @@ public class UserService extends GenericEntityService<UserRepository, User>{
 		return "unknown";
 	}
 
-	//save to somewhere
+	// save to somewhere
 	private void writeFile(byte[] content, String filename) throws IOException {
 
 		File file = new File(filename);

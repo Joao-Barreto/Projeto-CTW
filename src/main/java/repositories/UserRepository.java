@@ -58,5 +58,10 @@ public class UserRepository extends GenericEntityRepository<User>{
 		.executeUpdate();
 		
 	}
+	
+	public User editEntity(User editedEntity) {
+		System.out.println("ENTREI NO REPOSITORY"+editedEntity.toString());
+		return entityManager.merge(editedEntity);
+	}
 
 }

@@ -21,9 +21,11 @@ public class TrainingSessionService extends GenericEntityService<TrainingSession
 	@Inject
 	UserSubscriptionService userSubscriptionService;
 	
-	@Override
-	public TrainingSession updateEntity(long id, TrainingSession entity) throws Exception {
-		return repository.editEntity(entity);
+	@Transactional
+	public TrainingSessionDTO updateEntity(long id, TrainingSessionDTO entity) throws Exception {
+		
+		
+		return convertToTrainingSessionDTO(repository.editEntity(convertToTrainingSession(entity)));
 	}
 
 	@Transactional
@@ -38,6 +40,7 @@ public class TrainingSessionService extends GenericEntityService<TrainingSession
 		ts.setRequirements(entity.getRequirements());
 		ts.setSessionDate(tsDate);
 		ts.setDuration(entity.getDuration());
+		ts.setDescription(entity.getDescription());
 		TrainingSession returnTs = repository.createEntity(ts);
 		
 //		createInstructor(entity.getInstructor(),returnTs.getId());	
@@ -86,5 +89,35 @@ public class TrainingSessionService extends GenericEntityService<TrainingSession
 		return repository.listAllUnansweredTrainingSessions(userId);
 	}
 	
+	 public TrainingSessionDTO convertToTrainingSessionDTO(TrainingSession ts){
+		 TrainingSessionDTO tsDTO = new TrainingSessionDTO();
+	    	tsDTO.setId(ts.getId());
+	    	tsDTO.setCapacity(ts.getCapacity());
+	    	tsDTO.setDescription(ts.getDescription());
+	    	tsDTO.setDuration(ts.getDuration());
+	    	tsDTO.setInstructor(0);
+	    	tsDTO.setLocation(ts.getLocation());
+	    	tsDTO.setRequirements(ts.getRequirements());
+	    	tsDTO.setSessionDate(ts.getSessionDate().toString());
+	    	//userDTO.setProgress(user.getProgress()); //TODO
+	    	return tsDTO;
+	    }
+	    
+	    public TrainingSession convertToTrainingSession(TrainingSessionDTO tsDTO) throws ParseException{
+	    	Date d = tsDTO.getSubmissionDateConverted(tsDTO.getSessionDate());
+			TrainingSession ts = new TrainingSession();
+			Timestamp tsDate = new Timestamp(d.getTime());
+			
+			ts.setTitle(tsDTO.getTitle());
+			ts.setLocation(tsDTO.getLocation());
+			ts.setCapacity(tsDTO.getCapacity());
+			ts.setRequirements(tsDTO.getRequirements());
+			ts.setSessionDate(tsDate);
+			ts.setDuration(tsDTO.getDuration());
+			ts.setDescription(tsDTO.getDescription());
+			
+
+	    	return ts;
+	    }
 
 }

@@ -15,8 +15,9 @@ public class TrainingSessionDTO extends BaseDTO{
 	private int capacity;
 	private String requirements;
 	private String sessionDate;
-	private String duration;
+	private int duration;
 	private long instructor;
+	private String description;
 	
 	public Date getSubmissionDateConverted(String timezone) throws ParseException {
         dateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
@@ -81,11 +82,19 @@ public class TrainingSessionDTO extends BaseDTO{
 		this.title = title;
 	}
 
-	public String getDuration() {
+	public int getDuration() {
 		return duration;
 	}
 
-	public void setDuration(String duration) {
+	public void setDuration(int duration) {
 		this.duration = duration;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

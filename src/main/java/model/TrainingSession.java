@@ -37,7 +37,8 @@ public class TrainingSession extends GenericEntity{
 		private int capacity;
 		private String requirements;
 		private Timestamp sessionDate;
-		private String duration;
+		private int duration;
+		private String description;
 		
 		public TrainingSession() {
 
@@ -83,11 +84,11 @@ public class TrainingSession extends GenericEntity{
 			this.sessionDate = sessionDate;
 		}
 		
-		public String getDuration() {
+		public int getDuration() {
 			return duration;
 		}
 
-		public void setDuration(String duration) {
+		public void setDuration(int duration) {
 			this.duration = duration;
 		}
 
@@ -96,6 +97,14 @@ public class TrainingSession extends GenericEntity{
 			return "TrainingSession [title=" + title + ", location=" + location + ", capacity=" + capacity
 					+ ", requirements=" + requirements + ", sessionDate=" + sessionDate + ", duration=" + duration
 					+ ", id=" + id + "]";
+		}
+
+		public String getDescription() {
+			return description;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
 		}
 
 }

@@ -70,5 +70,10 @@ public class UserSubscriptionRepository extends GenericEntityRepository<UserSubs
 				.setParameter("sessionId", sessionId)
 				.getResultList();
 	}
+	
+	public UserSubscription editEntity(UserSubscription editedEntity) {
+		System.out.println("ENTREI NO REPOSITORY"+editedEntity.toString());
+		return entityManager.merge(editedEntity);
+	}
 
 }

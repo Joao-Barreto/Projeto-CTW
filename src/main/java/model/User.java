@@ -22,7 +22,7 @@ public class User extends GenericEntity{
 
 
 	public static final String GET_USER_SUBSCRIBED_BY_SESSION_ID = "User.getUserSubscribedBySessionId";
-	
+
 	@Column(unique=true)
 	private String email;
 	
@@ -30,6 +30,7 @@ public class User extends GenericEntity{
 	private String role;
 	private String hashcode;
 	private String salt;
+	private String imgUrl;
 	
 	public User() {
 		
@@ -68,6 +69,14 @@ public class User extends GenericEntity{
 
 	public void setSalt(String salt) {
 		this.salt = salt;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 	
 }

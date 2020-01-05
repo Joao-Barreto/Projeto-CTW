@@ -27,5 +27,10 @@ public class QuestionnaireRepository extends GenericEntityRepository<Questionnai
 	protected String getCountQueryName() {
 		return Questionnaire.GET_QUESTIONNAIRES_COUNT;
 	}
+	
+	public Questionnaire editEntity(Questionnaire editedEntity) {
+		System.out.println("ENTREI NO REPOSITORY"+editedEntity.toString());
+		return entityManager.merge(editedEntity);
+	}
 
 }

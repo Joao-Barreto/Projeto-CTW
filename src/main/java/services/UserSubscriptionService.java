@@ -20,7 +20,6 @@ public class UserSubscriptionService extends GenericEntityService<UserSubscripti
 	TrainingSessionService trainingSessionService;
 	
 	
-	@Override
 	@Transactional
 	public UserSubscription updateEntity(long id, UserSubscription entity) throws Exception {
 		System.out.println("ENTREI NO SERVICE "+id+" "+entity);

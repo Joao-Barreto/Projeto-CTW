@@ -29,5 +29,10 @@ public class AnswerRepository extends GenericEntityRepository<Answer>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public Answer editEntity(Answer editedEntity) {
+		System.out.println("ENTREI NO REPOSITORY"+editedEntity.toString());
+		return entityManager.merge(editedEntity);
+	}
 
 }

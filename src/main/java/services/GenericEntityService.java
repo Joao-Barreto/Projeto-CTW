@@ -29,7 +29,7 @@ public abstract class GenericEntityService<T extends GenericEntityRepository<E>,
 		repository.removeEntity(id);
 	}
 
-	public abstract E updateEntity(long id, E Entity) throws Exception;
+//	public abstract E updateEntity(long id, E Entity) throws Exception;
 
 	@Transactional
 	public Long countEntity() {

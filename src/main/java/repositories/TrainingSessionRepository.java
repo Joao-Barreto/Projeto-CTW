@@ -65,5 +65,10 @@ public class TrainingSessionRepository extends GenericEntityRepository<TrainingS
 				.setParameter("userId", userId)
 				.getResultList();
 	}
+	
+	public TrainingSession editEntity(TrainingSession editedEntity) {
+		System.out.println("ENTREI NO REPOSITORY"+editedEntity.toString());
+		return entityManager.merge(editedEntity);
+	}
 
 }
