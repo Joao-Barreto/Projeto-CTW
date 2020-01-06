@@ -8,20 +8,23 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name=User.GET_ALL_USERS, query="SELECT u FROM User u")
 @NamedQuery(name=User.GET_ALL_USERS_IDS, query="SELECT u.id FROM User u")
 @NamedQuery(name=User.GET_USERS_COUNT, query="SELECT COUNT(u) FROM User u")
-@NamedQuery(name = User.GET_USER_BY_EMAIL, query= "Select u from User u WHERE u.email = :email")
-@NamedQuery(name = User.GET_USER_SUBSCRIBED_BY_SESSION_ID, query= "Select us.user from UserSubscription us WHERE us.trainingSession.id = :sessionId")
+@NamedQuery(name = User.GET_USER_BY_EMAIL, query= "SELECT u FROM User u WHERE u.email = :email")
+@NamedQuery(name = User.GET_USER_SUBSCRIBED_BY_SESSION_ID, query= "SELECT us.user FROM UserSubscription us WHERE us.trainingSession.id = :sessionId")
+@NamedQuery(name = User.SET_IMGURL_BY_USER_ID, query= "UPDATE User user SET user.imgUrl = :imgUrl WHERE user.id = :userId")
+@NamedQuery(name = User.GET_IMG_URL_BY_USER_ID, query= "SELECT user.imgUrl FROM User user WHERE user.id = :userId")
 public class User extends GenericEntity{
 
 	private static final long serialVersionUID = 1L;
 	
-
 	public static final String GET_ALL_USERS = "User.getAllUsers";
 	public static final String GET_ALL_USERS_IDS = "User.getAllUsersIds";
 	public static final String GET_USERS_COUNT = "User.getUsersCount";
 	public static final String GET_USER_BY_EMAIL = "User.getUserByEmail";
-
-
 	public static final String GET_USER_SUBSCRIBED_BY_SESSION_ID = "User.getUserSubscribedBySessionId";
+
+	public static final String SET_IMGURL_BY_USER_ID = "User.setImgUrlByUserId";
+
+	public static final String GET_IMG_URL_BY_USER_ID = "User.getImgUrlByUserId";
 
 	@Column(unique=true)
 	private String email;

@@ -31,13 +31,6 @@ public class UserRepository extends GenericEntityRepository<User>{
 		return User.GET_USERS_COUNT;
 	}
 
-//	public User consultEntityByEmailAndPassword(User user) {
-//		return entityManager.createNamedQuery(User.GET_USER_BY_EMAIL_AND_PASSWORD, User.class)
-//				.setParameter("email", user.getEmail())
-//				.setParameter("password", user.getPassword())
-//				.getSingleResult();
-//	}
-
 	public User findUserByEmail(String email) {
 		return entityManager.createNamedQuery(User.GET_USER_BY_EMAIL, User.class)
 				.setParameter("email", email)
@@ -51,10 +44,10 @@ public class UserRepository extends GenericEntityRepository<User>{
 				.getResultList();
 	}
 
-	public void updateImage(long id, String fileName) {//FAZER A QUERY PARA UPDATE DO FILENAME
-		entityManager.createNamedQuery(User.GET_USER_SUBSCRIBED_BY_SESSION_ID, User.class) 
-		.setParameter("id", id)
-		.setParameter("imgPath", fileName)
+	public void updateImage(long id, String fileName) {
+		entityManager.createNamedQuery(User.SET_IMGURL_BY_USER_ID, User.class) 
+		.setParameter("userId", id)
+		.setParameter("imgUrl", fileName)
 		.executeUpdate();
 		
 	}
@@ -62,6 +55,13 @@ public class UserRepository extends GenericEntityRepository<User>{
 	public User editEntity(User editedEntity) {
 		System.out.println("ENTREI NO REPOSITORY"+editedEntity.toString());
 		return entityManager.merge(editedEntity);
+	}
+
+	public String getImgUrl(long id) {
+		
+		return entityManager.createNamedQuery(User.GET_IMG_URL_BY_USER_ID, String.class)
+				.setParameter("userId",id)
+				.getSingleResult();
 	}
 
 }

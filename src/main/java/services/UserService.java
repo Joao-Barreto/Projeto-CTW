@@ -28,7 +28,8 @@ import utils.PasswordUtils;
 @RequestScoped
 public class UserService extends GenericEntityService<UserRepository, User> {
 
-	private final String UPLOADED_FILE_PATH = "/Users/alunomanha/Documents/";// mudar o caminho da pasta
+	//private final String UPLOADED_FILE_PATH = "/Users/alunomanha/Documents/";// mudar o caminho da pasta
+	private final String UPLOADED_FILE_PATH = "C:/Users/Utilizador/Desktop/UpAcademy/img/";
 	
 	@Inject
 	UserSubscriptionService userSubscriptionService;
@@ -167,6 +168,7 @@ public class UserService extends GenericEntityService<UserRepository, User> {
 		return result;
 	}
 
+	@Transactional
 	public String saveImage(long id, MultipartFormDataInput input) {
 		String fileName = "";
 
@@ -236,6 +238,13 @@ public class UserService extends GenericEntityService<UserRepository, User> {
 		fop.flush();
 		fop.close();
 
+	}
+
+	public File getUserImg(long id) {
+		String imgUrl = repository.getImgUrl(id);
+		System.out.println(imgUrl);
+		 File file = new File(imgUrl);
+		return file;
 	}
 
 }

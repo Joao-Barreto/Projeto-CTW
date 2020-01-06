@@ -64,7 +64,7 @@ public class UserController extends GenericEntityController<UserService,UserRepo
 		return Response.status(Response.Status.UNAUTHORIZED).entity("No attendees").build();	
 	}
 	
-	@POST
+	@PUT
 	@Path("{id}/image-upload")
 	@Consumes("multipart/form-data")
 	public Response uploadFile2(@PathParam("id") long id,MultipartFormDataInput input) {
@@ -73,11 +73,11 @@ public class UserController extends GenericEntityController<UserService,UserRepo
 	}
 	
 	@GET
-	@Path("image")
+	@Path("{id}/image")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	public Response getFile() {
-	  File file = new File("/Users/alunomanha/Documents/Screen Shot 2019-11-14 at 09.03.51.png");// mudar caminho(ir buscar à BD)
-	  return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
+	public Response getFile(@PathParam("id") long id) {
+		File file =	service.getUserImg(id);
+		return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
 	      .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"" ) 
 	      .build();
 	}
