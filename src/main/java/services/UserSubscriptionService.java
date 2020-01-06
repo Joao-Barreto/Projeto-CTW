@@ -69,5 +69,10 @@ public class UserSubscriptionService extends GenericEntityService<UserSubscripti
 		return repository.getSubscriptionBySessionId( sessionId);
 	}
 
+	public void removeAllSubsByUserId(long id) {
+		repository.removeAllSubsByUserId(id);
+		
+	}
+
 
 }

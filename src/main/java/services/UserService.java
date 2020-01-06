@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.transaction.Transactional;
@@ -28,7 +29,12 @@ import utils.PasswordUtils;
 public class UserService extends GenericEntityService<UserRepository, User> {
 
 	private final String UPLOADED_FILE_PATH = "/Users/alunomanha/Documents/";// mudar o caminho da pasta
-
+	
+	@Inject
+	UserSubscriptionService userSubscriptionService;
+	
+	
+	
 	@Transactional
 	public UserDTO updateEntity(long id, UserDTO entity) throws Exception {
 //		System.out.println(entity.toString());
@@ -130,6 +136,13 @@ public class UserService extends GenericEntityService<UserRepository, User> {
 		//user.setImgUrl(userDTO.getImgUrl());
 
 		return user;
+	}
+	
+	@Override
+	@Transactional
+	public void deleteEntity(long id) {
+		userSubscriptionService.removeAllSubsByUserId(id);
+		repository.removeEntity(id);
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////

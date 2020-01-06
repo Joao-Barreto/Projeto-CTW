@@ -76,4 +76,11 @@ public class UserSubscriptionRepository extends GenericEntityRepository<UserSubs
 		return entityManager.merge(editedEntity);
 	}
 
+	public void removeAllSubsByUserId(long id) {
+		entityManager.createNamedQuery(UserSubscription.REMOVE_ALL_SUBS, UserSubscription.class)
+		.setParameter("userId", id)
+		.executeUpdate();
+		
+	}
+
 }

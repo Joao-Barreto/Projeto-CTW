@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 @NamedQuery(name=UserSubscription.GET_IF_USER_SUBSCRIBED,query="SELECT us.id FROM UserSubscription us WHERE us.trainingSession.id = :sessionId AND us.user.id = :userId")
 @NamedQuery(name=UserSubscription.GET_SUBSCRIPTION,query="SELECT us FROM UserSubscription us WHERE us.user.id = :userId AND us.trainingSession.id = :sessionId")
 @NamedQuery(name=UserSubscription.GET_SUBSCRIPTION_BY_SESSION_ID,query="SELECT us FROM UserSubscription us WHERE us.trainingSession.id = :sessionId")
+@NamedQuery(name=UserSubscription.REMOVE_ALL_SUBS,query="DELETE FROM UserSubscription us WHERE us.user.id = :userId")
 public class UserSubscription extends GenericEntity{
 
 	private static final long serialVersionUID = 1L;
@@ -32,6 +33,8 @@ public class UserSubscription extends GenericEntity{
 	public static final String GET_SUBSCRIPTION = "UserSubscription.getSubscription";
 
 	public static final String GET_SUBSCRIPTION_BY_SESSION_ID = "UserSubscription.getSubscriptionBySessionId";
+
+	public static final String REMOVE_ALL_SUBS = "UserSubscription.removeAllSubs";
 	
 	@ManyToOne
 	private User user;
