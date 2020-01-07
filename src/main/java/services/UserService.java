@@ -28,8 +28,8 @@ import utils.PasswordUtils;
 @RequestScoped
 public class UserService extends GenericEntityService<UserRepository, User> {
 
-	//private final String UPLOADED_FILE_PATH = "/Users/alunomanha/Documents/";// mudar o caminho da pasta
-	private final String UPLOADED_FILE_PATH = "C:/Users/Utilizador/Desktop/UpAcademy/img/";
+	private final String UPLOADED_FILE_PATH = "/Users/alunomanha/Documents/";// mudar o caminho da pasta
+	//private final String UPLOADED_FILE_PATH = "C:/Users/Utilizador/Desktop/UpAcademy/img/";
 	
 	@Inject
 	UserSubscriptionService userSubscriptionService;
@@ -80,6 +80,12 @@ public class UserService extends GenericEntityService<UserRepository, User> {
 	public Collection<User> getUserSubscribedBySessionId(long sessionId) {
 
 		return repository.getUserSubscribedBySessionId(sessionId);
+	}
+	
+	@Transactional
+	public long getUserProgress(long userId) {
+		// TODO Auto-generated method stub
+		return repository.getUserProgress(userId);
 	}
 
 	public User checkIfUserValid(UserDTO userDTO, String password) throws Exception {
@@ -188,8 +194,9 @@ public class UserService extends GenericEntityService<UserRepository, User> {
 				byte[] bytes = IOUtils.toByteArray(inputStream);
 
 				// constructs upload file path
+				
 				fileName = UPLOADED_FILE_PATH + fileName;
-
+				System.out.println(fileName);
 				writeFile(bytes, fileName);
 
 				// save na BD o path
@@ -246,5 +253,7 @@ public class UserService extends GenericEntityService<UserRepository, User> {
 		 File file = new File(imgUrl);
 		return file;
 	}
+
+	
 
 }

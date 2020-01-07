@@ -12,6 +12,7 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name = User.GET_USER_SUBSCRIBED_BY_SESSION_ID, query= "SELECT us.user FROM UserSubscription us WHERE us.trainingSession.id = :sessionId")
 @NamedQuery(name = User.SET_IMGURL_BY_USER_ID, query= "UPDATE User user SET user.imgUrl = :imgUrl WHERE user.id = :userId")
 @NamedQuery(name = User.GET_IMG_URL_BY_USER_ID, query= "SELECT user.imgUrl FROM User user WHERE user.id = :userId")
+@NamedQuery(name = User.GET_USER_PROGRESS, query= "SELECT SUM(us.trainingSession.duration) FROM UserSubscription us WHERE us.user.id = :userId AND us.attended = 'attended'")
 public class User extends GenericEntity{
 
 	private static final long serialVersionUID = 1L;
@@ -25,6 +26,8 @@ public class User extends GenericEntity{
 	public static final String SET_IMGURL_BY_USER_ID = "User.setImgUrlByUserId";
 
 	public static final String GET_IMG_URL_BY_USER_ID = "User.getImgUrlByUserId";
+
+	public static final String GET_USER_PROGRESS = "User.getUserProgress";
 
 	@Column(unique=true)
 	private String email;

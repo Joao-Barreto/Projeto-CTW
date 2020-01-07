@@ -64,4 +64,10 @@ public class UserRepository extends GenericEntityRepository<User>{
 				.getSingleResult();
 	}
 
+	public long getUserProgress(long userId) {
+		return entityManager.createNamedQuery(User.GET_USER_PROGRESS, long.class)
+				.setParameter("userId",userId)
+				.getSingleResult();
+	}
+
 }

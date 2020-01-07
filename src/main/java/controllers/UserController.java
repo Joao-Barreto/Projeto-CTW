@@ -64,6 +64,18 @@ public class UserController extends GenericEntityController<UserService,UserRepo
 		return Response.status(Response.Status.UNAUTHORIZED).entity("No attendees").build();	
 	}
 	
+	@GET
+	@Path("{userId}/progress/")
+	public Response getUserProgress(@PathParam("userId") long userId) {
+		try {
+			long progress = service.getUserProgress(userId);
+			return Response.ok().entity(progress).build();	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Response.status(Response.Status.UNAUTHORIZED).entity("No attendees").build();	
+	}
+	
 	@PUT
 	@Path("{id}/image-upload")
 	@Consumes("multipart/form-data")
