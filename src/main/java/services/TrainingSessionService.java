@@ -89,6 +89,12 @@ public class TrainingSessionService extends GenericEntityService<TrainingSession
 		return repository.listAllUnansweredTrainingSessions(userId);
 	}
 	
+	@Transactional
+	public Collection<TrainingSession> getNextSessionsEnrolled(long userId) {
+		// TODO Auto-generated method stub
+		return repository.getNextSessionsEnrolled(userId);
+	}
+	
 	 public TrainingSessionDTO convertToTrainingSessionDTO(TrainingSession ts){
 		 TrainingSessionDTO tsDTO = new TrainingSessionDTO();
 	    	tsDTO.setId(ts.getId());
@@ -119,5 +125,7 @@ public class TrainingSessionService extends GenericEntityService<TrainingSession
 
 	    	return ts;
 	    }
+
+		
 
 }

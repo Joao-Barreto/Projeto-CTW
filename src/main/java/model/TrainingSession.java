@@ -16,6 +16,7 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name =TrainingSession.GET_SESSIONS_BY_USER_ID, query= "Select us.trainingSession from UserSubscription us WHERE us.user.id = :userId")
 @NamedQuery(name=TrainingSession.GET_ALL_PAST_TRAININGSESSIONS_SUBSCRIBED, query="Select us.trainingSession from UserSubscription us WHERE us.user.id = :userId AND us.trainingSession.sessionDate < CURRENT_TIMESTAMP")
 @NamedQuery(name=TrainingSession.GET_ALL_UNANSWERED_TRAININGSESSIONS, query="Select us.trainingSession from UserSubscription us WHERE us.user.id = :userId AND us.subType = 'attendee' AND us.answered = FALSE AND us.trainingSession.sessionDate < CURRENT_TIMESTAMP")
+@NamedQuery(name=TrainingSession.GET_NEXT_SESSIONS_ENROLLED, query="Select us.trainingSession from UserSubscription us WHERE us.user.id = :userId AND us.trainingSession.sessionDate > CURRENT_TIMESTAMP")
 public class TrainingSession extends GenericEntity{
 
 	public static final String GET_ALL_TRAININGSESSIONS = "TrainingSession.getAllTrainingSessions";
@@ -26,8 +27,10 @@ public class TrainingSession extends GenericEntity{
 	public static final String GET_SESSIONS_BY_USER_ID = "TrainingSession.getSessionsByUserId";
 	public static final String GET_ALL_PAST_TRAININGSESSIONS_SUBSCRIBED = "TrainingSession.getAllTrainingSessionsSubscribed";
 	public static final String GET_ALL_UNANSWERED_TRAININGSESSIONS = "TrainingSession.getAllUnansweredTrainingSessions";
+	public static final String GET_NEXT_SESSIONS_ENROLLED = "TrainingSession.getNextSessionsEnrolled";
 	
 	private static final long serialVersionUID = 1L;
+	
 	
 	
 

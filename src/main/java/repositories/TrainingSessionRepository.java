@@ -71,4 +71,10 @@ public class TrainingSessionRepository extends GenericEntityRepository<TrainingS
 		return entityManager.merge(editedEntity);
 	}
 
+	public Collection<TrainingSession> getNextSessionsEnrolled(long userId) {
+		return entityManager.createNamedQuery(TrainingSession.GET_NEXT_SESSIONS_ENROLLED, TrainingSession.class)
+				.setParameter("userId", userId)
+				.getResultList();
+	}
+
 }
