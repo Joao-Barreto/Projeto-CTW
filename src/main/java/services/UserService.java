@@ -25,6 +25,15 @@ import model.dto.UserDTO;
 import repositories.UserRepository;
 import utils.PasswordUtils;
 
+import com.sendgrid.Method;
+import com.sendgrid.Request;
+import com.sendgrid.Response;
+import com.sendgrid.SendGrid;
+import com.sendgrid.helpers.mail.Mail;
+import com.sendgrid.helpers.mail.objects.Content;
+import com.sendgrid.helpers.mail.objects.Email;
+import com.sendgrid.helpers.mail.objects.Personalization;
+
 @RequestScoped
 public class UserService extends GenericEntityService<UserRepository, User> {
 
@@ -254,6 +263,41 @@ public class UserService extends GenericEntityService<UserRepository, User> {
 		return file;
 	}
 
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////Email-Methods/////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public void sendMessage(String conteudo, String instructorEmail) throws IOException {
+		Mail mail = new Mail();
+		Email fromEmail = new Email();
+	    fromEmail.setName("João Barreto");
+	    fromEmail.setEmail("eng.joao.barreto@gmail.com");
+	    mail.setFrom(fromEmail);
+
+	    mail.setTemplateId("d-c4d411f1e6ac47dcba26c1093136cb47");//fazer um template no sendgrid e por aqui o id
+
+	    Personalization personalization = new Personalization();
+	    personalization.addDynamicTemplateData("conteudo", conteudo);//conteudo variavel do template de SendFrid
+	    personalization.addTo(new Email(instructorEmail));//por aqui o email pretendido
+	    mail.addPersonalization(personalization);
+		
+		
+		try {
+			System.out.println(System.getProperty("SGKey"));
+			SendGrid sg = new SendGrid(System.getProperty("SGKey"));
+			Request request = new Request();
+			request.setMethod(Method.POST);
+			request.setEndpoint("mail/send");
+			request.setBody(mail.build());
+			Response response = sg.api(request);
+			System.out.println(response.getStatusCode());
+			System.out.println(response.getBody());
+			System.out.println(response.getHeaders());
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			throw ex;
+		}
+	}
 	
 
 }

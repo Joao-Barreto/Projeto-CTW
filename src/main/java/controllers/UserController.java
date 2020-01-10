@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 
 import javax.ws.rs.Consumes;
@@ -108,6 +109,23 @@ public class UserController extends GenericEntityController<UserService,UserRepo
 			e.printStackTrace();
 			return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 		}
+	}
+	
+	@POST
+	@Path("sendGrid/{instructorEmail}")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.TEXT_PLAIN)
+	public String sendGrid(@PathParam("instructorEmail") String instructorEmail,String conteudo) throws IOException {
+		
+		try {
+			System.out.println(System.getProperty("SGKey"));
+			service.sendMessage(conteudo,instructorEmail);
+		}
+		catch(Exception e){
+			System.out.println("SHIT BOY");
+			e.printStackTrace();
+		}
+		return "Email is OK!";
 	}
 	
 }
