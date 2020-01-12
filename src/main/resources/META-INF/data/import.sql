@@ -1,1 +1,1 @@
-INSERT INTO User(email,name,role,hashcode,salt) VALUES ('eng.joao.barreto@gmail.com','Joao Barreto','admin','3NX1VlFy','95pfMG3rkGQbS7SDkfUPaaJiGuURW7gncCPmPPR1G4qYbS/ck2+D0MOYao5kwYAppIc=')
+INSERT INTO User(email,name,role,hashcode,salt) VALUES ('admin@criticaltechworks.com','Nicole Ferreira','admin','eYFAEElS','XzA64KJFeIqQlKrYYOEQJ2E7Hsdj+b2+0Lv9nUWeYRZuD/zVu69fPRS9UmWR4+wYeZY=')

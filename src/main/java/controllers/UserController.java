@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import model.User;
+import model.dto.EmailDTO;
 import model.dto.UserDTO;
 import repositories.UserRepository;
 import services.UserService;
@@ -114,15 +115,14 @@ public class UserController extends GenericEntityController<UserService,UserRepo
 	@POST
 	@Path("sendGrid/{instructorEmail}")
 	@Produces(MediaType.TEXT_PLAIN)
-	@Consumes(MediaType.TEXT_PLAIN)
-	public String sendGrid(@PathParam("instructorEmail") String instructorEmail,String conteudo) throws IOException {
-		
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String sendGrid(@PathParam("instructorEmail") String instructorEmail, EmailDTO conteudo) throws IOException {
+		System.out.println(conteudo);
 		try {
 			System.out.println(System.getProperty("SGKey"));
 			service.sendMessage(conteudo,instructorEmail);
 		}
 		catch(Exception e){
-			System.out.println("SHIT BOY");
 			e.printStackTrace();
 		}
 		return "Email is OK!";
